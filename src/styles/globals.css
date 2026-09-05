@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --color-navy:        #0F1C3F;
+  --color-navy-light:  #162347;
+  --color-navy-dark:   #080E1F;
+  --color-gold:        #C9A84C;
+  --color-gold-light:  #E2C06A;
+  --color-gold-dark:   #A8872E;
+  --color-cream:       #FAF7F0;
+  --color-surface:     #FFFFFF;
+  --color-surface-alt: #F5F5F5;
+  --color-border:      #E2E8F0;
+  --color-text:        #1A1A2E;
+  --color-text-muted:  #64748B;
+  --color-success:     #16A34A;
+  --color-danger:      #DC2626;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+.heading-display {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navy section */
+.section-navy {
+  background-color: var(--color-navy);
+  color: white;
+}
+
+/* Gold divider */
+.divider-gold {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  border-radius: 2px;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 28, 63, 0.12);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface-alt); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 3px; }

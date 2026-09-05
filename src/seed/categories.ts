@@ -1,0 +1,102 @@
+// Seed data — Categories
+export const CATEGORIES = [
+  { name: 'eCourt Filing', slug: 'ecourt-filing', tagline: 'Litigation • e-Filing • Court Drafting • Court Documentation', description: 'Complete court filing services — civil, criminal, bail, writ, Supreme Court, arbitration and more.', icon: 'Scale', color: 'blue', order: 1 },
+  { name: 'eTender & Procurement', slug: 'etender-procurement', tagline: 'Government • Railway • GeM • PSU • Defence • Private Tenders', description: 'End-to-end tender filing support for government, railway, defence, PSU and private tenders.', icon: 'FileText', color: 'amber', order: 2 },
+  { name: 'Business Incorporation', slug: 'business-incorporation', tagline: 'Company • LLP • Partnership • Proprietorship • Business Setup', description: 'Register your business — Private Limited, OPC, LLP, Partnership, Proprietorship and more.', icon: 'Building2', color: 'green', order: 3 },
+  { name: 'Annual Business Compliance', slug: 'annual-compliance', tagline: 'ROC • MCA • GST • Tax • Corporate Compliance', description: 'Stay compliant — ROC filings, director compliance, GST returns, board meetings and more.', icon: 'ClipboardCheck', color: 'purple', order: 4 },
+]
+
+// eCourt Filing Subcategories
+export const ECOURT_SUBCATEGORIES = [
+  { name: 'Civil Case Filing', slug: 'civil-case-filing', order: 1 },
+  { name: 'Criminal Case Filing', slug: 'criminal-case-filing', order: 2 },
+  { name: 'Bail Filing', slug: 'bail-filing', order: 3 },
+  { name: 'Criminal Applications', slug: 'criminal-applications', order: 4 },
+  { name: 'Civil Applications', slug: 'civil-applications', order: 5 },
+  { name: 'Pleadings & Court Documents', slug: 'pleadings-court-documents', order: 6 },
+  { name: 'High Court / Writ', slug: 'high-court-writ', order: 7 },
+  { name: 'Family & Matrimonial', slug: 'family-matrimonial', order: 8 },
+  { name: 'Property & Land', slug: 'property-land', order: 9 },
+  { name: 'Commercial & Business Litigation', slug: 'commercial-business-litigation', order: 10 },
+  { name: 'Arbitration & ADR', slug: 'arbitration-adr', order: 11 },
+  { name: 'Company & Corporate Litigation', slug: 'company-corporate-litigation', order: 12 },
+  { name: 'MACT / Motor Accident', slug: 'mact-motor-accident', order: 13 },
+  { name: 'Tax & Revenue Litigation', slug: 'tax-revenue-litigation', order: 14 },
+  { name: 'Regulatory & Special Laws', slug: 'regulatory-special-laws', order: 15 },
+  { name: 'Appeal / Revision / Review', slug: 'appeal-revision-review', order: 16 },
+  { name: 'Execution & Recovery', slug: 'execution-recovery', order: 17 },
+  { name: 'Caveat Filing', slug: 'caveat-filing', order: 18 },
+  { name: 'Supreme Court Filing', slug: 'supreme-court-filing', order: 19 },
+  { name: 'Probate & Succession', slug: 'probate-succession', order: 20 },
+  { name: 'eCourt Drafting & Documentation', slug: 'ecourt-drafting-documentation', order: 21 },
+]
+
+// eTender Subcategories
+export const ETENDER_SUBCATEGORIES = [
+  { name: 'Government e-Tender Filing', slug: 'government-etender-filing', order: 1 },
+  { name: 'Central Government Tender', slug: 'central-government-tender', order: 2 },
+  { name: 'State Government Tender', slug: 'state-government-tender', order: 3 },
+  { name: 'Railway Tender Filing', slug: 'railway-tender-filing', order: 4 },
+  { name: 'Defence Tender Filing', slug: 'defence-tender-filing', order: 5 },
+  { name: 'PSU Tender Filing', slug: 'psu-tender-filing', order: 6 },
+  { name: 'GeM Bid & Tender', slug: 'gem-bid-tender', order: 7 },
+  { name: 'Private Tender Filing', slug: 'private-tender-filing', order: 8 },
+  { name: 'Tender Documentation', slug: 'tender-documentation', order: 9 },
+  { name: 'Technical Bid Filing', slug: 'technical-bid-filing', order: 10 },
+  { name: 'Financial Bid Filing', slug: 'financial-bid-filing', order: 11 },
+  { name: 'EMD / Tender Fee', slug: 'emd-tender-fee', order: 12 },
+  { name: 'Tender Registration', slug: 'tender-registration', order: 13 },
+  { name: 'Pre-Bid & Tender Clarification', slug: 'pre-bid-tender-clarification', order: 14 },
+  { name: 'Tender Compliance', slug: 'tender-compliance', order: 15 },
+  { name: 'Tender Rejection / Disqualification', slug: 'tender-rejection-disqualification', order: 16 },
+  { name: 'Tender Dispute & Legal Support', slug: 'tender-dispute-legal-support', order: 17 },
+  { name: 'Blacklisting / Debarment', slug: 'blacklisting-debarment', order: 18 },
+  { name: 'Work Order & Post-Tender', slug: 'work-order-post-tender', order: 19 },
+  { name: 'Tender Search & Information', slug: 'tender-search-information', order: 20 },
+  { name: 'Complete Tender Filing Support', slug: 'complete-tender-filing-support', order: 21 },
+]
+
+// Business Incorporation Subcategories
+export const INCORPORATION_SUBCATEGORIES = [
+  { name: 'Private Limited Company', slug: 'private-limited-company', order: 1 },
+  { name: 'One Person Company (OPC)', slug: 'one-person-company', order: 2 },
+  { name: 'Limited Liability Partnership (LLP)', slug: 'limited-liability-partnership', order: 3 },
+  { name: 'Public Limited Company', slug: 'public-limited-company', order: 4 },
+  { name: 'Section 8 Company', slug: 'section-8-company', order: 5 },
+  { name: 'Producer Company', slug: 'producer-company', order: 6 },
+  { name: 'Nidhi Company', slug: 'nidhi-company', order: 7 },
+  { name: 'Partnership Firm', slug: 'partnership-firm', order: 8 },
+  { name: 'Sole Proprietorship', slug: 'sole-proprietorship', order: 9 },
+  { name: 'Subsidiary / Corporate Structure', slug: 'subsidiary-corporate-structure', order: 10 },
+  { name: 'Foreign Company Setup in India', slug: 'foreign-company-setup', order: 11 },
+  { name: 'Company Name Reservation', slug: 'company-name-reservation', order: 12 },
+  { name: 'Common Incorporation Services', slug: 'common-incorporation-services', order: 13 },
+  { name: 'Business Registration & Documentation', slug: 'business-registration-documentation', order: 14 },
+  { name: 'Business Structure Consultation', slug: 'business-structure-consultation', order: 15 },
+  { name: 'Conversion / Restructuring', slug: 'conversion-restructuring', order: 16 },
+  { name: 'Incorporation Correction / Resubmission', slug: 'incorporation-correction-resubmission', order: 17 },
+]
+
+// Annual Compliance Subcategories
+export const COMPLIANCE_SUBCATEGORIES = [
+  { name: 'Annual Compliance by Entity', slug: 'annual-compliance-by-entity', order: 1 },
+  { name: 'ROC / MCA Compliance', slug: 'roc-mca-compliance', order: 2 },
+  { name: 'Director / DIN Compliance', slug: 'director-din-compliance', order: 3 },
+  { name: 'Director Changes', slug: 'director-changes', order: 4 },
+  { name: 'DSC Services', slug: 'dsc-services', order: 5 },
+  { name: 'Board / AGM / Corporate Governance', slug: 'board-agm-corporate-governance', order: 6 },
+  { name: 'Company Changes / Event-Based Compliance', slug: 'company-changes-event-based', order: 7 },
+  { name: 'Share Capital & Shareholding', slug: 'share-capital-shareholding', order: 8 },
+  { name: 'Charge / Loan Compliance', slug: 'charge-loan-compliance', order: 9 },
+  { name: 'Statutory Records', slug: 'statutory-records', order: 10 },
+  { name: 'Beneficial Ownership / SBO', slug: 'beneficial-ownership-sbo', order: 11 },
+  { name: 'Auditor & Financial Compliance', slug: 'auditor-financial-compliance', order: 12 },
+  { name: 'GST & Tax Compliance', slug: 'gst-tax-compliance', order: 13 },
+  { name: 'Other Statutory Compliance', slug: 'other-statutory-compliance', order: 14 },
+  { name: 'Compliance Check / Due Diligence', slug: 'compliance-check-due-diligence', order: 15 },
+  { name: 'Late Filing / Default / Regularisation', slug: 'late-filing-default-regularisation', order: 16 },
+  { name: 'MCA / ROC Notice & Query', slug: 'mca-roc-notice-query', order: 17 },
+  { name: 'Company Closure / Strike Off', slug: 'company-closure-strike-off', order: 18 },
+  { name: 'Compliance Packages', slug: 'compliance-packages', order: 19 },
+  { name: 'Compliance Advisory & Ongoing Support', slug: 'compliance-advisory-ongoing-support', order: 20 },
+]
