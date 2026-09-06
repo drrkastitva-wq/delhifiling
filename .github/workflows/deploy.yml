@@ -17,9 +17,10 @@ jobs:
           timeout: 300s
           script: |
             set -e
-            cd /var/www/delhifilling
+            cd /var/www/delhifiling
             git pull origin main
-            npm install --production=false
+            npm install --legacy-peer-deps
             npm run build
             pm2 restart delhifilling || pm2 start ecosystem.config.js
+            pm2 save --force
             echo "✅ Deployed!"
