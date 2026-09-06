@@ -22,8 +22,8 @@ const CATEGORY_LABELS: Record<string, string> = {
   'general': 'General',
 }
 
-export default async function BlogPage({ searchParams }: { searchParams: { category?: string } }) {
-  const category = searchParams.category
+export default async function BlogPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams
   const [posts, settings] = await Promise.all([
     getBlogPosts({ limit: 50, category }).catch(() => []),
     getSiteSettings().catch(() => null),

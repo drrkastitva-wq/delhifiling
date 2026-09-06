@@ -58,8 +58,9 @@ async function getServiceCategoryMap() {
   }
 }
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const q = searchParams.q?.trim() || ''
+export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q: rawQ } = await searchParams
+  const q = rawQ?.trim() || ''
   const [settings, results, categoryMap] = await Promise.all([
     getSiteSettings().catch(() => null),
     searchServices(q),
