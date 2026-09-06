@@ -2,8 +2,20 @@ import type { CollectionConfig } from 'payload'
 
 export const Inquiries: CollectionConfig = {
   slug: 'inquiries',
-  admin: { useAsTitle: 'name', defaultColumns: ['name', 'phone', 'service', 'status', 'createdAt'] },
-  access: { create: () => true, read: () => true, update: () => true, delete: () => true },
+  admin: {
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'phone', 'serviceText', 'status', 'createdAt'],
+    group: 'CRM',
+  },
+  access: {
+    create: () => true,
+    read: ({ req }) => {
+      if (req.user) return true
+      return false
+    },
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => req.user?.role === 'admin',
+  },
   fields: [
     { name: 'name', type: 'text', required: true },
     { name: 'phone', type: 'text', required: true },

@@ -19,6 +19,8 @@ import { Stats } from './src/collections/Stats'
 import { SiteSettings } from './src/globals/SiteSettings'
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
+import { BlogPosts } from './src/collections/BlogPosts'
+import { Payments } from './src/collections/Payments'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +30,6 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: '— Delhi Filing Admin',
-      favicon: '/favicon.ico',
     },
   },
   collections: [
@@ -43,6 +44,8 @@ export default buildConfig({
     Testimonials,
     TrustPoints,
     Stats,
+    BlogPosts,
+    Payments,
   ],
   globals: [SiteSettings],
   editor: lexicalEditor({}),

@@ -121,3 +121,26 @@ export async function getSiteSettings() {
   const payload = await getPayloadClient()
   return payload.findGlobal({ slug: 'site-settings' })
 }
+
+export async function getBlogPosts({ limit = 10, category }: { limit?: number; category?: string } = {}) {
+  const payload = await getPayloadClient()
+  const where: any = { status: { equals: 'published' } }
+  if (category) where.category = { equals: category }
+  const { docs } = await payload.find({
+    collection: 'blog-posts',
+    where,
+    sort: '-publishedAt',
+    limit,
+  })
+  return docs
+}
+
+export async function getBlogPostBySlug(slug: string) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'blog-posts',
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
+    limit: 1,
+  })
+  return docs[0] || null
+}

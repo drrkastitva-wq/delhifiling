@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const TrustPoints: CollectionConfig = {
   slug: 'trust-points',
-  admin: { useAsTitle: 'title', defaultColumns: ['title', 'active', 'order'] },
+  admin: { useAsTitle: 'title', defaultColumns: ['title', 'active', 'order'], group: 'Content' },
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea' },

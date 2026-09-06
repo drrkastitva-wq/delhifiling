@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Stats: CollectionConfig = {
   slug: 'stats',
-  admin: { useAsTitle: 'label', defaultColumns: ['label', 'value', 'active', 'order'] },
+  admin: { useAsTitle: 'label', defaultColumns: ['label', 'value', 'active', 'order'], group: 'Content' },
   fields: [
     { name: 'value', type: 'text', required: true, admin: { description: 'e.g. 500+ or 10,000+' } },
     { name: 'label', type: 'text', required: true, admin: { description: 'e.g. Services Offered' } },

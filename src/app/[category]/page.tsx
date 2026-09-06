@@ -1,12 +1,28 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import InquiryForm from '@/components/ui/InquiryForm'
-import { getCategoryBySlug, getSubcategoriesByCategory, getSiteSettings } from '@/lib/payload'
+import { getCategoryBySlug, getSubcategoriesByCategory, getSiteSettings, getCategories } from '@/lib/payload'
 
 export const revalidate = 3600
+
+export async function generateStaticParams() {
+  const categories = await getCategories().catch(() => [])
+  return categories.map((cat: any) => ({ category: cat.slug }))
+}
+
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+  const cat = await getCategoryBySlug(params.category).catch(() => null)
+  if (!cat) return {}
+  return {
+    title: cat.name,
+    description: cat.description || cat.tagline || `${cat.name} services — Delhi Filing`,
+    openGraph: { title: cat.name, description: cat.description || cat.tagline || '' },
+  }
+}
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
   const [category, settings] = await Promise.all([
@@ -14,7 +30,7 @@ export default async function CategoryPage({ params }: { params: { category: str
     getSiteSettings().catch(() => null),
   ])
   if (!category) notFound()
-  const subcategories = await getSubcategoriesByCategory(category.id).catch(() => [])
+  const subcategories = await getSubcategoriesByCategory(String(category.id)).catch(() => [])
 
   return (
     <Layout settings={settings}>

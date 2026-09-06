@@ -3,9 +3,35 @@ import Layout from '@/components/layout/Layout'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import ServiceCard from '@/components/ui/ServiceCard'
 import InquiryForm from '@/components/ui/InquiryForm'
-import { getCategoryBySlug, getSubcategoryBySlug, getServicesBySubcategory, getSiteSettings } from '@/lib/payload'
+import type { Metadata } from 'next'
+import { getCategoryBySlug, getSubcategoryBySlug, getServicesBySubcategory, getSiteSettings, getCategories, getSubcategoriesByCategory } from '@/lib/payload'
 
 export const revalidate = 3600
+
+export async function generateStaticParams() {
+  const categories = await getCategories().catch(() => [])
+  const params: { category: string; subcategory: string }[] = []
+  for (const cat of categories as any[]) {
+    const subs = await getSubcategoriesByCategory(String(cat.id)).catch(() => [])
+    for (const sub of subs as any[]) {
+      params.push({ category: cat.slug, subcategory: sub.slug })
+    }
+  }
+  return params
+}
+
+export async function generateMetadata({ params }: { params: { category: string; subcategory: string } }): Promise<Metadata> {
+  const [cat, sub] = await Promise.all([
+    getCategoryBySlug(params.category).catch(() => null),
+    getSubcategoryBySlug(params.subcategory).catch(() => null),
+  ])
+  if (!sub) return {}
+  return {
+    title: `${sub.name} | ${cat?.name || ''}`,
+    description: sub.description || `${sub.name} services — Delhi Filing`,
+    openGraph: { title: sub.name, description: sub.description || '' },
+  }
+}
 
 export default async function SubcategoryPage({ params }: { params: { category: string; subcategory: string } }) {
   const [category, subcategory, settings] = await Promise.all([
@@ -14,7 +40,7 @@ export default async function SubcategoryPage({ params }: { params: { category: 
     getSiteSettings().catch(() => null),
   ])
   if (!category || !subcategory) notFound()
-  const services = await getServicesBySubcategory(subcategory.id).catch(() => [])
+  const services = await getServicesBySubcategory(String(subcategory.id)).catch(() => [])
 
   return (
     <Layout settings={settings}>

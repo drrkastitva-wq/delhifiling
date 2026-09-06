@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const HeroBanners: CollectionConfig = {
   slug: 'hero-banners',
-  admin: { useAsTitle: 'heading', defaultColumns: ['heading', 'active', 'order'] },
+  admin: { useAsTitle: 'heading', defaultColumns: ['heading', 'active', 'order'], group: 'Content' },
   fields: [
     { name: 'heading', type: 'text', required: true },
     { name: 'subheading', type: 'textarea' },

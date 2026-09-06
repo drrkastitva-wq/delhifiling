@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Subcategories: CollectionConfig = {
   slug: 'subcategories',
-  admin: { useAsTitle: 'name', defaultColumns: ['name', 'category', 'slug', 'order'] },
+  admin: { useAsTitle: 'name', defaultColumns: ['name', 'category', 'slug', 'order'], group: 'Services' },
   fields: [
     { name: 'name', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true },
