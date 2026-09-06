@@ -14,8 +14,9 @@ export async function generateStaticParams() {
   return categories.map((cat: any) => ({ category: cat.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const cat = await getCategoryBySlug(params.category).catch(() => null)
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category: categorySlug } = await params
+  const cat = await getCategoryBySlug(categorySlug).catch(() => null)
   if (!cat) return {}
   return {
     title: cat.name,
@@ -24,9 +25,10 @@ export async function generateMetadata({ params }: { params: { category: string 
   }
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category: categorySlug } = await params
   const [category, settings] = await Promise.all([
-    getCategoryBySlug(params.category).catch(() => null),
+    getCategoryBySlug(categorySlug).catch(() => null),
     getSiteSettings().catch(() => null),
   ])
   if (!category) notFound()
@@ -48,7 +50,7 @@ export default async function CategoryPage({ params }: { params: { category: str
           {subcategories.length > 0 ? (
             <div className="grid sm:grid-cols-2 gap-4">
               {subcategories.map((sub: any) => (
-                <Link key={sub.id} href={`/${params.category}/${sub.slug}`}
+                <Link key={sub.id} href={`/${categorySlug}/${sub.slug}`}
                   className="group flex items-center justify-between bg-white border border-border rounded-xl p-5 card-hover">
                   <div>
                     <h3 className="font-semibold text-navy text-sm group-hover:text-gold transition">{sub.name}</h3>

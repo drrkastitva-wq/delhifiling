@@ -16,8 +16,9 @@ export async function generateStaticParams() {
   return (posts as any[]).map((p) => ({ slug: p.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await getBlogPostBySlug(params.slug).catch(() => null)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getBlogPostBySlug(slug).catch(() => null)
   if (!post) return {}
   return {
     title: post.metaTitle || post.title,
@@ -39,9 +40,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   'general': 'General',
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const [post, settings] = await Promise.all([
-    getBlogPostBySlug(params.slug).catch(() => null),
+    getBlogPostBySlug(slug).catch(() => null),
     getSiteSettings().catch(() => null),
   ])
   if (!post) notFound()

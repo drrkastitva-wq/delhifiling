@@ -20,10 +20,11 @@ export async function generateStaticParams() {
   return params
 }
 
-export async function generateMetadata({ params }: { params: { category: string; subcategory: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ category: string; subcategory: string }> }): Promise<Metadata> {
+  const { category: categorySlug, subcategory: subcategorySlug } = await params
   const [cat, sub] = await Promise.all([
-    getCategoryBySlug(params.category).catch(() => null),
-    getSubcategoryBySlug(params.subcategory).catch(() => null),
+    getCategoryBySlug(categorySlug).catch(() => null),
+    getSubcategoryBySlug(subcategorySlug).catch(() => null),
   ])
   if (!sub) return {}
   return {
@@ -33,10 +34,11 @@ export async function generateMetadata({ params }: { params: { category: string;
   }
 }
 
-export default async function SubcategoryPage({ params }: { params: { category: string; subcategory: string } }) {
+export default async function SubcategoryPage({ params }: { params: Promise<{ category: string; subcategory: string }> }) {
+  const { category: categorySlug, subcategory: subcategorySlug } = await params
   const [category, subcategory, settings] = await Promise.all([
-    getCategoryBySlug(params.category).catch(() => null),
-    getSubcategoryBySlug(params.subcategory).catch(() => null),
+    getCategoryBySlug(categorySlug).catch(() => null),
+    getSubcategoryBySlug(subcategorySlug).catch(() => null),
     getSiteSettings().catch(() => null),
   ])
   if (!category || !subcategory) notFound()
@@ -47,7 +49,7 @@ export default async function SubcategoryPage({ params }: { params: { category: 
       <section className="bg-navy py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <Breadcrumb crumbs={[
-            { label: category.name, href: `/${params.category}` },
+            { label: category.name, href: `/${categorySlug}` },
             { label: subcategory.name },
           ]} />
           <h1 className="font-heading text-3xl md:text-4xl font-bold text-white mt-4 mb-2">{subcategory.name}</h1>
@@ -69,7 +71,7 @@ export default async function SubcategoryPage({ params }: { params: { category: 
                   shortDescription={svc.shortDescription}
                   timeline={svc.timeline}
                   professionalFee={svc.professionalFee}
-                  href={`/${params.category}/${params.subcategory}/${svc.slug}`}
+                  href={`/${categorySlug}/${subcategorySlug}/${svc.slug}`}
                 />
               ))}
             </div>

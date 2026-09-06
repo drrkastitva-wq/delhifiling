@@ -9,19 +9,21 @@ import { getCategoryBySlug, getSubcategoryBySlug, getServiceBySlug, getSiteSetti
 
 export const revalidate = 3600
 
-export async function generateMetadata({ params }: { params: { category: string; subcategory: string; service: string } }): Promise<Metadata> {
-  const svc = await getServiceBySlug(params.service).catch(() => null)
+export async function generateMetadata({ params }: { params: Promise<{ category: string; subcategory: string; service: string }> }): Promise<Metadata> {
+  const { category, subcategory, service } = await params
+  const svc = await getServiceBySlug(service).catch(() => null)
   return {
     title: svc?.metaTitle || svc?.name || 'Service',
     description: svc?.metaDescription || svc?.shortDescription || '',
   }
 }
 
-export default async function ServicePage({ params }: { params: { category: string; subcategory: string; service: string } }) {
+export default async function ServicePage({ params }: { params: Promise<{ category: string; subcategory: string; service: string }> }) {
+  const { category: categorySlug, subcategory: subcategorySlug, service: serviceSlug } = await params
   const [category, subcategory, service, settings] = await Promise.all([
-    getCategoryBySlug(params.category).catch(() => null),
-    getSubcategoryBySlug(params.subcategory).catch(() => null),
-    getServiceBySlug(params.service).catch(() => null),
+    getCategoryBySlug(categorySlug).catch(() => null),
+    getSubcategoryBySlug(subcategorySlug).catch(() => null),
+    getServiceBySlug(serviceSlug).catch(() => null),
     getSiteSettings().catch(() => null),
   ])
   if (!category || !subcategory || !service) notFound()
@@ -32,8 +34,8 @@ export default async function ServicePage({ params }: { params: { category: stri
       <section className="bg-navy py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <Breadcrumb crumbs={[
-            { label: category.name, href: `/${params.category}` },
-            { label: subcategory.name, href: `/${params.category}/${params.subcategory}` },
+            { label: category.name, href: `/${categorySlug}` },
+            { label: subcategory.name, href: `/${categorySlug}/${subcategorySlug}` },
             { label: service.name },
           ]} />
           <h1 className="font-heading text-3xl md:text-4xl font-bold text-white mt-4 mb-3">{service.name}</h1>
