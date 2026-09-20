@@ -11,7 +11,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'delhifilling-media.s3.ap-south-1.amazonaws.com' },
-      { protocol: 'https', hostname: 'delhifilling-uploads.s3.ap-south-1.amazonaws.com' },
+      { protocol: 'https', hostname: 'delhifilling-media.s3.amazonaws.com' },
+      { protocol: 'https', hostname: '*.s3.ap-south-1.amazonaws.com' },
+      { protocol: 'https', hostname: '*.s3.amazonaws.com' },
     ],
   },
 }

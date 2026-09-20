@@ -8,21 +8,23 @@ const NAV_ITEMS = [
   {
     label: 'eCourt Filing', href: '/ecourt-filing',
     links: [
-      { label: 'Civil Court Filing', href: '/ecourt-filing/civil-matters' },
-      { label: 'Criminal Court Filing', href: '/ecourt-filing/criminal-matters' },
-      { label: 'High Court & Supreme Court', href: '/ecourt-filing/high-court-supreme-court' },
-      { label: 'Bail Applications', href: '/ecourt-filing/bail-applications' },
-      { label: 'Arbitration & Tribunal', href: '/ecourt-filing/arbitration-tribunal' },
-      { label: 'Legal Drafting', href: '/ecourt-filing/legal-drafting' },
+      { label: 'Civil Case Filing', href: '/ecourt-filing/civil-case-filing' },
+      { label: 'Criminal Case Filing', href: '/ecourt-filing/criminal-case-filing' },
+      { label: 'High Court / Writ', href: '/ecourt-filing/high-court-writ' },
+      { label: 'Supreme Court Filing', href: '/ecourt-filing/supreme-court-filing' },
+      { label: 'Bail Filing', href: '/ecourt-filing/bail-filing' },
+      { label: 'Arbitration & ADR', href: '/ecourt-filing/arbitration-adr' },
+      { label: 'eCourt Drafting & Docs', href: '/ecourt-filing/ecourt-drafting-documentation' },
     ],
   },
   {
     label: 'eTender & Procurement', href: '/etender-procurement',
     links: [
-      { label: 'Government Tenders', href: '/etender-procurement/government-tenders' },
-      { label: 'Railway Tenders', href: '/etender-procurement/railway-tenders' },
-      { label: 'GeM Registration', href: '/etender-procurement/gem-registration' },
-      { label: 'PSU & Defence', href: '/etender-procurement/psu-defence' },
+      { label: 'Government e-Tender Filing', href: '/etender-procurement/government-etender-filing' },
+      { label: 'Railway Tender Filing', href: '/etender-procurement/railway-tender-filing' },
+      { label: 'GeM Bid & Tender', href: '/etender-procurement/gem-bid-tender' },
+      { label: 'PSU Tender Filing', href: '/etender-procurement/psu-tender-filing' },
+      { label: 'Defence Tender Filing', href: '/etender-procurement/defence-tender-filing' },
       { label: 'Tender Documentation', href: '/etender-procurement/tender-documentation' },
     ],
   },
@@ -30,21 +32,21 @@ const NAV_ITEMS = [
     label: 'Business Incorporation', href: '/business-incorporation',
     links: [
       { label: 'Private Limited Company', href: '/business-incorporation/private-limited-company' },
-      { label: 'One Person Company', href: '/business-incorporation/one-person-company' },
-      { label: 'LLP Registration', href: '/business-incorporation/llp-registration' },
+      { label: 'One Person Company (OPC)', href: '/business-incorporation/one-person-company' },
+      { label: 'LLP Registration', href: '/business-incorporation/limited-liability-partnership' },
       { label: 'Partnership Firm', href: '/business-incorporation/partnership-firm' },
-      { label: 'Proprietorship', href: '/business-incorporation/proprietorship' },
-      { label: 'Section 8 / NGO', href: '/business-incorporation/section-8-ngo' },
+      { label: 'Sole Proprietorship', href: '/business-incorporation/sole-proprietorship' },
+      { label: 'Section 8 Company', href: '/business-incorporation/section-8-company' },
     ],
   },
   {
     label: 'Annual Compliance', href: '/annual-compliance',
     links: [
-      { label: 'ROC Annual Filing', href: '/annual-compliance/roc-annual-filing' },
-      { label: 'GST Returns', href: '/annual-compliance/gst-returns' },
-      { label: 'Income Tax Filing', href: '/annual-compliance/income-tax-filing' },
-      { label: 'Director Compliance', href: '/annual-compliance/director-compliance' },
-      { label: 'Board Meeting Support', href: '/annual-compliance/board-meeting-support' },
+      { label: 'ROC / MCA Compliance', href: '/annual-compliance/roc-mca-compliance' },
+      { label: 'GST & Tax Compliance', href: '/annual-compliance/gst-tax-compliance' },
+      { label: 'Director / DIN Compliance', href: '/annual-compliance/director-din-compliance' },
+      { label: 'Annual Compliance by Entity', href: '/annual-compliance/annual-compliance-by-entity' },
+      { label: 'Board / AGM Governance', href: '/annual-compliance/board-agm-corporate-governance' },
     ],
   },
 ]
@@ -234,14 +236,14 @@ export default function Layout({ children, settings }: { children: React.ReactNo
               <div className="text-[#FFD700] font-bold text-[14px] uppercase border-b-2 border-[#FF6600] pb-2 mb-3">
                 Delhi Filing
               </div>
-              <p className="text-[#b0c4de] text-[12px] leading-relaxed mb-4">
+              <p className="text-white text-[12px] leading-relaxed mb-4">
                 Professional Legal, Corporate &amp; Government Filing Services. Trusted by businesses and advocates across India.
               </p>
               <div className="space-y-2 text-[12px]">
                 <a href={`tel:${phone}`} className="flex items-center gap-2 text-[#FFD700] font-semibold hover:text-white no-underline transition">
                   <Phone size={12} />{phone}
                 </a>
-                <a href={`mailto:${email}`} className="flex items-center gap-2 text-[#b0c4de] hover:text-white no-underline transition">
+                <a href={`mailto:${email}`} className="flex items-center gap-2 text-white hover:text-[#FFD700] no-underline transition">
                   <Mail size={12} />{email}
                 </a>
               </div>
@@ -256,7 +258,7 @@ export default function Layout({ children, settings }: { children: React.ReactNo
                   {item.links.map(link => (
                     <li key={link.href}>
                       <Link href={link.href}
-                        className="flex items-center gap-2 text-[#b0c4de] text-[12px] hover:text-[#FFD700] no-underline transition">
+                        className="flex items-center gap-2 text-white text-[12px] hover:text-[#FFD700] no-underline transition">
                         <span className="w-1.5 h-1.5 bg-[#FF6600] rounded-full shrink-0" />{link.label}
                       </Link>
                     </li>
@@ -275,7 +277,7 @@ export default function Layout({ children, settings }: { children: React.ReactNo
                     {item.links.slice(0, 4).map(link => (
                       <li key={link.href}>
                         <Link href={link.href}
-                          className="flex items-center gap-2 text-[#b0c4de] text-[12px] hover:text-[#FFD700] no-underline transition">
+                          className="flex items-center gap-2 text-white text-[12px] hover:text-[#FFD700] no-underline transition">
                           <span className="w-1.5 h-1.5 bg-[#FF6600] rounded-full shrink-0" />{link.label}
                         </Link>
                       </li>
