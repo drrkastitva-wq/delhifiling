@@ -12,21 +12,50 @@ const ses = new SESClient({
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
-    const { name, phone, email, message, serviceText, category, source } = body
+    let name = '', phone = '', email = '', message = '', serviceText = '', category = '', source = ''
+    const uploadedFiles: string[] = []
+
+    const contentType = req.headers.get('content-type') || ''
+
+    if (contentType.includes('multipart/form-data')) {
+      const fd = await req.formData()
+      name = fd.get('name') as string || ''
+      phone = fd.get('phone') as string || ''
+      email = fd.get('email') as string || ''
+      message = fd.get('message') as string || ''
+      serviceText = fd.get('serviceText') as string || ''
+      category = fd.get('category') as string || ''
+      source = fd.get('source') as string || ''
+
+      const files = fd.getAll('files') as File[]
+      if (files.length) {
+        const payload = await getPayloadClient()
+        for (const file of files) {
+          if (!file.size) continue
+          const buffer = Buffer.from(await file.arrayBuffer())
+          const media = await payload.create({
+            collection: 'media',
+            data: { alt: `${serviceText || 'Inquiry'} — ${file.name}` },
+            file: { data: buffer, mimetype: file.type, name: file.name, size: file.size },
+          })
+          uploadedFiles.push(String(media.id))
+        }
+      }
+    } else {
+      const body = await req.json()
+      ;({ name, phone, email, message, serviceText, category, source } = body)
+    }
 
     if (!name || !phone) {
       return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 })
     }
 
-    // Save to Payload CMS
     const payload = await getPayloadClient()
     await payload.create({
       collection: 'inquiries',
       data: { name, phone, email, message, serviceText, category, source, status: 'new' },
     })
 
-    // Send email notification via SES
     const fromEmail = process.env.SES_FROM_EMAIL || 'info@delhifiling.com'
     const toEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@delhifiling.com'
 
@@ -50,7 +79,8 @@ export async function POST(req: NextRequest) {
                     ${serviceText ? `<tr><td style="padding:8px 0;color:#666">Service</td><td style="padding:8px 0">${serviceText}</td></tr>` : ''}
                     ${category ? `<tr><td style="padding:8px 0;color:#666">Category</td><td style="padding:8px 0">${category}</td></tr>` : ''}
                     ${message ? `<tr><td style="padding:8px 0;color:#666">Message</td><td style="padding:8px 0">${message}</td></tr>` : ''}
-                    ${source ? `<tr><td style="padding:8px 0;color:#666">Source Page</td><td style="padding:8px 0;font-size:12px">${source}</td></tr>` : ''}
+                    ${uploadedFiles.length ? `<tr><td style="padding:8px 0;color:#666">Documents</td><td style="padding:8px 0">${uploadedFiles.length} file(s) uploaded</td></tr>` : ''}
+                    ${source ? `<tr><td style="padding:8px 0;color:#666">Source</td><td style="padding:8px 0;font-size:12px">${source}</td></tr>` : ''}
                   </table>
                   <div style="margin-top:20px;padding:12px;background:#fff3cd;border-radius:6px;font-size:13px">
                     ⚡ Respond within 2 hours for best conversion
@@ -61,7 +91,7 @@ export async function POST(req: NextRequest) {
           },
         },
       },
-    }))
+    })).catch(() => {}) // don't fail if email fails
 
     return NextResponse.json({ success: true })
   } catch (err) {

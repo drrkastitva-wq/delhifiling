@@ -79,7 +79,8 @@ export async function getHeroBanners() {
     collection: 'hero-banners',
     where: { active: { equals: true } },
     sort: 'order',
-    limit: 5,
+    limit: 10,
+    depth: 1,
   })
   return docs
 }

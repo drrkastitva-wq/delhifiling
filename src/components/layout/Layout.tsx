@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Phone, Mail, ChevronDown, Scale, FileText, Building2, ClipboardCheck, Search, BookOpen } from 'lucide-react'
+import { Menu, X, Phone, Mail, ChevronDown, Scale, FileText, Building2, ClipboardCheck, Search, BookOpen, UserCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
@@ -15,9 +15,9 @@ const NAV_ITEMS = [
 export default function Layout({ children, settings }: { children: React.ReactNode; settings?: any }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const phone = settings?.phone || '+91 98765 43210'
+  const phone = settings?.phone || '+91 99119 91330'
   const email = settings?.email || 'info@delhifiling.com'
-  const whatsapp = settings?.whatsapp || '+91 98765 43210'
+  const whatsapp = settings?.whatsapp || '+91 99119 91330'
   const address = settings?.address || 'New Delhi, India'
 
   return (
@@ -72,6 +72,9 @@ export default function Layout({ children, settings }: { children: React.ReactNo
             <Link href="/search" className="p-2 text-text-muted hover:text-navy transition rounded-lg hover:bg-cream" aria-label="Search">
               <Search size={18} />
             </Link>
+            <Link href="/dashboard" className="p-2 text-text-muted hover:text-navy transition rounded-lg hover:bg-cream" aria-label="My Account">
+              <UserCircle size={18} />
+            </Link>
             <a
               href={`https://wa.me/${whatsapp.replace(/\D/g, '')}`}
               target="_blank"
@@ -120,6 +123,11 @@ export default function Layout({ children, settings }: { children: React.ReactNo
               className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-cream transition">
               <Search size={18} className="text-gold" />
               <div className="text-sm font-semibold text-navy">Search Services</div>
+            </Link>
+            <Link href="/dashboard" onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-cream transition">
+              <UserCircle size={18} className="text-gold" />
+              <div className="text-sm font-semibold text-navy">My Account</div>
             </Link>
             <div className="pt-3 flex gap-2">
               <Link href="/contact" onClick={() => setMenuOpen(false)} className="flex-1 text-center py-2.5 bg-gold text-navy text-sm font-semibold rounded-lg">

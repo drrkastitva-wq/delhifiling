@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
-import { Phone, Mail, MessageSquare, CheckCircle, Loader2 } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { MessageSquare, CheckCircle, Loader2, Paperclip, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface InquiryFormProps {
@@ -11,17 +11,26 @@ interface InquiryFormProps {
 
 export default function InquiryForm({ serviceName, category, className }: InquiryFormProps) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' })
+  const [files, setFiles] = useState<File[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  function removeFile(i: number) {
+    setFiles(f => f.filter((_, idx) => idx !== i))
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
     try {
-      const res = await fetch('/api/inquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, serviceText: serviceName, category, source: window.location.href }),
-      })
+      const fd = new FormData()
+      Object.entries(form).forEach(([k, v]) => fd.append(k, v))
+      fd.append('serviceText', serviceName || '')
+      fd.append('category', category || '')
+      fd.append('source', window.location.href)
+      files.forEach(f => fd.append('files', f))
+
+      const res = await fetch('/api/inquiry', { method: 'POST', body: fd })
       if (res.ok) setStatus('success')
       else setStatus('error')
     } catch {
@@ -46,40 +55,45 @@ export default function InquiryForm({ serviceName, category, className }: Inquir
         {serviceName && <p className="text-gold text-sm mt-1">{serviceName}</p>}
       </div>
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
-        <input
-          required
-          placeholder="Your Full Name *"
-          value={form.name}
+        <input required placeholder="Your Full Name *" value={form.name}
           onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition"
-        />
-        <input
-          required
-          type="tel"
-          placeholder="Mobile Number *"
-          value={form.phone}
+          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition" />
+        <input required type="tel" placeholder="Mobile Number *" value={form.phone}
           onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition"
-        />
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={form.email}
+          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition" />
+        <input type="email" placeholder="Email Address" value={form.email}
           onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition"
-        />
-        <textarea
-          rows={3}
-          placeholder="Brief description of your requirement..."
+          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition" />
+        <textarea rows={3} placeholder="Brief description of your requirement..."
           value={form.message}
           onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition resize-none"
-        />
-        <button
-          type="submit"
-          disabled={status === 'loading'}
-          className="w-full py-3 bg-gold text-navy font-semibold rounded-lg hover:bg-gold-dark transition flex items-center justify-center gap-2"
-        >
+          className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-navy transition resize-none" />
+
+        {/* Document upload */}
+        <div>
+          <button type="button" onClick={() => fileRef.current?.click()}
+            className="flex items-center gap-2 text-sm text-navy border border-dashed border-border rounded-lg px-4 py-2.5 w-full hover:border-navy transition">
+            <Paperclip size={15} className="text-gold" />
+            {files.length ? `${files.length} file(s) attached` : 'Attach documents (optional)'}
+          </button>
+          <input ref={fileRef} type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+            className="hidden" onChange={e => setFiles(Array.from(e.target.files || []))} />
+          {files.length > 0 && (
+            <div className="mt-2 space-y-1">
+              {files.map((f, i) => (
+                <div key={i} className="flex items-center justify-between text-xs text-text-muted bg-cream rounded px-3 py-1.5">
+                  <span className="truncate max-w-[200px]">{f.name}</span>
+                  <button type="button" onClick={() => removeFile(i)} className="ml-2 text-text-muted hover:text-navy">
+                    <X size={12} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <button type="submit" disabled={status === 'loading'}
+          className="w-full py-3 bg-gold text-navy font-semibold rounded-lg hover:bg-gold-dark transition flex items-center justify-center gap-2">
           {status === 'loading' ? <Loader2 size={18} className="animate-spin" /> : null}
           {status === 'loading' ? 'Submitting...' : 'Get Free Consultation'}
         </button>

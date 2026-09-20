@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { Clock, IndianRupee, FileText, CheckCircle, Shield, Award } from 'lucide-react'
+import { Clock, CheckCircle, Shield, Award } from 'lucide-react'
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import Breadcrumb from '@/components/ui/Breadcrumb'
@@ -44,16 +44,6 @@ export default async function ServicePage({ params }: { params: Promise<{ catego
             {service.timeline && (
               <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2 text-sm text-white">
                 <Clock size={15} className="text-gold" />{service.timeline}
-              </div>
-            )}
-            {service.professionalFee && (
-              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2 text-sm text-white">
-                <IndianRupee size={15} className="text-gold" />{service.professionalFee}
-              </div>
-            )}
-            {service.governmentFee && (
-              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2 text-sm text-white">
-                <FileText size={15} className="text-gold" />Govt Fee: {service.governmentFee}
               </div>
             )}
           </div>
@@ -137,7 +127,7 @@ export default async function ServicePage({ params }: { params: Promise<{ catego
             <InquiryForm serviceName={service.name} category={category.name} />
             <div className="bg-navy rounded-xl p-5 text-center">
               <p className="text-white/70 text-xs mb-3">Prefer to talk directly?</p>
-              <a href={`tel:${settings?.phone || '+919876543210'}`}
+              <a href={`tel:${settings?.phone || '9911991330'}`}
                 className="flex items-center justify-center gap-2 w-full py-3 bg-gold text-navy font-semibold rounded-lg text-sm hover:bg-gold-dark transition">
                 Call Us Now
               </a>

@@ -6,8 +6,8 @@ export const SiteSettings: GlobalConfig = {
   fields: [
     { name: 'siteName', type: 'text', defaultValue: 'Delhi Filing' },
     { name: 'tagline', type: 'text', defaultValue: 'Legal • Corporate • Compliance • Government Filing' },
-    { name: 'phone', type: 'text', defaultValue: '+91 98765 43210' },
-    { name: 'whatsapp', type: 'text', defaultValue: '+91 98765 43210' },
+    { name: 'phone', type: 'text', defaultValue: '+91 99119 91330' },
+    { name: 'whatsapp', type: 'text', defaultValue: '+91 99119 91330' },
     { name: 'email', type: 'email', defaultValue: 'info@delhifiling.com' },
     { name: 'address', type: 'textarea', defaultValue: 'New Delhi, India' },
     {

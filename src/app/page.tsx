@@ -1,30 +1,22 @@
 import Layout from '@/components/layout/Layout'
 import HeroSection from '@/components/sections/HeroSection'
-import StatsSection from '@/components/sections/StatsSection'
 import CategoriesSection from '@/components/sections/CategoriesSection'
-import TrustSection from '@/components/sections/TrustSection'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import InquiryForm from '@/components/ui/InquiryForm'
-import { getHeroBanners, getCategories, getStats, getTrustPoints, getTestimonials, getSiteSettings } from '@/lib/payload'
+import { getHeroBanners, getCategories, getSiteSettings } from '@/lib/payload'
 
 export const revalidate = 3600
 
 export default async function HomePage() {
-  const [banners, categories, stats, trustPoints, testimonials, settings] = await Promise.all([
+  const [banners, categories, settings] = await Promise.all([
     getHeroBanners().catch(() => []),
     getCategories().catch(() => []),
-    getStats().catch(() => []),
-    getTrustPoints().catch(() => []),
-    getTestimonials().catch(() => []),
     getSiteSettings().catch(() => null),
   ])
 
   return (
     <Layout settings={settings}>
-      <HeroSection banner={banners[0]} phone={settings?.phone} />
-      <StatsSection stats={stats} />
+      <HeroSection banners={banners} />
       <CategoriesSection categories={categories} />
-      <TrustSection points={trustPoints} />
 
       {/* CTA Banner */}
       <section className="bg-gold py-16 px-4">
@@ -34,7 +26,7 @@ export default async function HomePage() {
             <p className="text-navy/70 mt-2">Talk to our experts today — free consultation, no obligation.</p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <a href={`tel:${settings?.phone || '+919876543210'}`} className="px-6 py-3 bg-navy text-white font-semibold rounded-xl hover:bg-navy-dark transition">
+            <a href={`tel:${settings?.phone || '9911991330'}`} className="px-6 py-3 bg-navy text-white font-semibold rounded-xl hover:bg-navy-dark transition">
               Call Now
             </a>
             <a href="/contact" className="px-6 py-3 bg-white text-navy font-semibold rounded-xl hover:bg-cream transition">
@@ -43,8 +35,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <TestimonialsSection testimonials={testimonials} />
 
       {/* Contact section */}
       <section className="py-20 px-4 bg-white">

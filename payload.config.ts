@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { ClientUsers } from './src/collections/ClientUsers'
 import { Categories } from './src/collections/Categories'
 import { Subcategories } from './src/collections/Subcategories'
 import { Services } from './src/collections/Services'
@@ -34,6 +35,7 @@ export default buildConfig({
   },
   collections: [
     Users,
+    ClientUsers,
     Media,
     Categories,
     Subcategories,
