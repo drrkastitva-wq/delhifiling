@@ -96,18 +96,18 @@ export default function Layout({ children, settings }: { children: React.ReactNo
       </div>
 
       {/* ── Row 2: Brand header ── */}
-      <div style={{ background: '#003366' }}>
+      <div className="bg-gradient-to-r from-[#001f4d] via-[#003366] to-[#004d99]">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           {/* Logo + name */}
           <Link href="/" className="flex items-center gap-3 no-underline hover:no-underline">
-            <div className="w-12 h-12 bg-white rounded flex items-center justify-center shrink-0">
-              <span className="text-[#003366] font-bold text-lg leading-none">DF</span>
+            <div className="w-12 h-12 bg-[#FF6600] rounded flex items-center justify-center shrink-0 shadow">
+              <span className="text-white font-bold text-lg leading-none">DF</span>
             </div>
             <div>
-              <div className="text-white font-bold text-xl leading-tight" style={{ fontFamily: 'Noto Sans, Arial, sans-serif' }}>
+              <div className="text-white font-bold text-xl leading-tight tracking-wide">
                 Delhi Filing
               </div>
-              <div className="text-[#FFD700] text-[11px] leading-tight mt-0.5">
+              <div className="text-[#FFD700] text-[11px] leading-tight mt-0.5 tracking-wider">
                 Legal · Corporate · Compliance Services
               </div>
             </div>
@@ -115,16 +115,16 @@ export default function Layout({ children, settings }: { children: React.ReactNo
 
           {/* Right: contact + search + account */}
           <div className="hidden md:flex items-center gap-4">
-            <a href={`tel:${phone}`} className="flex items-center gap-1.5 text-white text-[12px] hover:text-[#FFD700] transition no-underline">
+            <a href={`tel:${phone}`} className="flex items-center gap-1.5 text-[#FFD700] text-[12px] font-semibold hover:text-white transition no-underline">
               <Phone size={13} />{phone}
             </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/70 text-[12px] hover:text-[#FFD700] transition no-underline">
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/80 text-[12px] hover:text-[#FFD700] transition no-underline">
               <Mail size={13} />{email}
             </a>
-            <Link href="/search" className="flex items-center gap-1 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white text-[12px] rounded transition no-underline">
+            <Link href="/search" className="flex items-center gap-1 px-2.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-[12px] rounded transition no-underline">
               <Search size={13} />
             </Link>
-            <Link href="/dashboard" className="px-3 py-1.5 bg-[#FF6600] hover:bg-[#e65c00] text-white text-[12px] font-semibold rounded transition no-underline">
+            <Link href="/dashboard" className="px-3 py-1.5 bg-[#FF6600] hover:bg-[#e65c00] text-white text-[12px] font-semibold rounded transition no-underline shadow">
               My Account
             </Link>
           </div>
@@ -225,23 +225,23 @@ export default function Layout({ children, settings }: { children: React.ReactNo
 
       {/* ── Footer ── */}
       <footer>
-        {/* Top footer — dark blue */}
-        <div style={{ background: '#003366' }}>
+        {/* Top footer — gradient dark blue */}
+        <div className="bg-gradient-to-b from-[#001a3d] to-[#002f5c]">
           <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {/* Brand */}
             <div>
-              <div className="text-[#FFD700] font-bold text-[14px] uppercase border-b border-[#FF6600] pb-2 mb-3">
+              <div className="text-[#FFD700] font-bold text-[14px] uppercase border-b-2 border-[#FF6600] pb-2 mb-3">
                 Delhi Filing
               </div>
-              <p className="text-white/60 text-[12px] leading-relaxed mb-4">
+              <p className="text-[#b0c4de] text-[12px] leading-relaxed mb-4">
                 Professional Legal, Corporate &amp; Government Filing Services. Trusted by businesses and advocates across India.
               </p>
-              <div className="space-y-1.5 text-[12px]">
-                <a href={`tel:${phone}`} className="flex items-center gap-2 text-white/70 hover:text-[#FFD700] no-underline transition">
+              <div className="space-y-2 text-[12px]">
+                <a href={`tel:${phone}`} className="flex items-center gap-2 text-[#FFD700] font-semibold hover:text-white no-underline transition">
                   <Phone size={12} />{phone}
                 </a>
-                <a href={`mailto:${email}`} className="flex items-center gap-2 text-white/70 hover:text-[#FFD700] no-underline transition">
+                <a href={`mailto:${email}`} className="flex items-center gap-2 text-[#b0c4de] hover:text-white no-underline transition">
                   <Mail size={12} />{email}
                 </a>
               </div>
@@ -249,15 +249,15 @@ export default function Layout({ children, settings }: { children: React.ReactNo
 
             {NAV_ITEMS.slice(0, 2).map(item => (
               <div key={item.href}>
-                <div className="text-[#FFD700] font-bold text-[13px] uppercase border-b border-[#FF6600] pb-2 mb-3">
+                <div className="text-[#FFD700] font-bold text-[13px] uppercase border-b-2 border-[#FF6600] pb-2 mb-3">
                   {item.label}
                 </div>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {item.links.map(link => (
                     <li key={link.href}>
                       <Link href={link.href}
-                        className="flex items-center gap-2 text-white/60 text-[12px] hover:text-white no-underline transition">
-                        <span className="w-1 h-1 bg-[#FF6600] rounded-full shrink-0" />{link.label}
+                        className="flex items-center gap-2 text-[#b0c4de] text-[12px] hover:text-[#FFD700] no-underline transition">
+                        <span className="w-1.5 h-1.5 bg-[#FF6600] rounded-full shrink-0" />{link.label}
                       </Link>
                     </li>
                   ))}
@@ -268,15 +268,15 @@ export default function Layout({ children, settings }: { children: React.ReactNo
             <div>
               {NAV_ITEMS.slice(2).map(item => (
                 <div key={item.href} className="mb-5 last:mb-0">
-                  <div className="text-[#FFD700] font-bold text-[13px] uppercase border-b border-[#FF6600] pb-2 mb-3">
+                  <div className="text-[#FFD700] font-bold text-[13px] uppercase border-b-2 border-[#FF6600] pb-2 mb-3">
                     {item.label}
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {item.links.slice(0, 4).map(link => (
                       <li key={link.href}>
                         <Link href={link.href}
-                          className="flex items-center gap-2 text-white/60 text-[12px] hover:text-white no-underline transition">
-                          <span className="w-1 h-1 bg-[#FF6600] rounded-full shrink-0" />{link.label}
+                          className="flex items-center gap-2 text-[#b0c4de] text-[12px] hover:text-[#FFD700] no-underline transition">
+                          <span className="w-1.5 h-1.5 bg-[#FF6600] rounded-full shrink-0" />{link.label}
                         </Link>
                       </li>
                     ))}
@@ -288,14 +288,14 @@ export default function Layout({ children, settings }: { children: React.ReactNo
         </div>
 
         {/* Bottom footer bar */}
-        <div style={{ background: '#002244' }}>
-          <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-white/40">
-            <span>© {new Date().getFullYear()} Delhi Filing. All rights reserved.</span>
+        <div className="bg-[#FF6600]">
+          <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-white">
+            <span className="font-medium">© {new Date().getFullYear()} Delhi Filing. All rights reserved.</span>
             <div className="flex items-center gap-4">
-              <Link href="/blog" className="hover:text-white no-underline transition">Updates</Link>
-              <Link href="/search" className="hover:text-white no-underline transition">Search</Link>
-              <Link href="/contact" className="hover:text-white no-underline transition">Contact</Link>
-              <Link href="/dashboard" className="hover:text-white no-underline transition">My Account</Link>
+              <Link href="/blog" className="hover:underline no-underline transition">Updates</Link>
+              <Link href="/search" className="hover:underline no-underline transition">Search</Link>
+              <Link href="/contact" className="hover:underline no-underline transition">Contact</Link>
+              <Link href="/dashboard" className="hover:underline no-underline transition">My Account</Link>
             </div>
           </div>
         </div>
