@@ -78,6 +78,7 @@ export default buildConfig({
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
         },
         region: process.env.AWS_REGION || 'ap-south-1',
+        endpoint: `https://s3.${process.env.AWS_REGION || 'ap-south-1'}.amazonaws.com`,
       },
     }),
   ],

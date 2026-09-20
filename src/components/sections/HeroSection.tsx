@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const DEFAULT_SLIDES = [
@@ -46,6 +45,7 @@ export default function HeroSection({ banners }: { banners: any[] }) {
 
   const slide = slides[current]
   const hasImage = !!slide.backgroundImage?.url
+  const imgUrl = hasImage ? slide.backgroundImage.url : null
 
   return (
     <section className="relative overflow-hidden"
@@ -54,7 +54,8 @@ export default function HeroSection({ banners }: { banners: any[] }) {
       onMouseLeave={() => setPaused(false)}>
 
       {hasImage ? (
-        <Image src={slide.backgroundImage.url} alt={slide.heading || ''} fill className="object-cover" priority />
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={imgUrl!} alt={slide.heading || ''} className="absolute inset-0 w-full h-full object-cover" />
       ) : (
         <>
           {/* Gov-style hero: dark blue bg with saffron left bar */}
