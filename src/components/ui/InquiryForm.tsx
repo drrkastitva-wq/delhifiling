@@ -50,9 +50,9 @@ export default function InquiryForm({ serviceName, category, className }: Inquir
 
   return (
     <div className={cn('bg-white rounded-2xl border border-border shadow-lg overflow-hidden', className)}>
-      <div className="bg-navy px-6 py-4">
+      <div className="bg-navy px-6 py-4 border-b-2 border-[#16a34a]">
         <h3 className="font-heading font-bold text-white text-lg">Get Free Consultation</h3>
-        {serviceName && <p className="text-gold text-sm mt-1">{serviceName}</p>}
+        {serviceName && <p className="text-[#22c55e] text-sm mt-1">{serviceName}</p>}
       </div>
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
         <input required placeholder="Your Full Name *" value={form.name}
@@ -93,13 +93,13 @@ export default function InquiryForm({ serviceName, category, className }: Inquir
         </div>
 
         <button type="submit" disabled={status === 'loading'}
-          className="w-full py-3 bg-gold text-navy font-semibold rounded-lg hover:bg-gold-dark transition flex items-center justify-center gap-2">
+          className="w-full py-3 bg-[#16a34a] text-white font-semibold rounded-lg hover:bg-[#15803d] transition flex items-center justify-center gap-2">
           {status === 'loading' ? <Loader2 size={18} className="animate-spin" /> : null}
           {status === 'loading' ? 'Submitting...' : 'Get Free Consultation'}
         </button>
         {status === 'error' && <p className="text-danger text-xs text-center">Something went wrong. Please call us directly.</p>}
         <div className="flex items-center gap-2 justify-center pt-1">
-          <MessageSquare size={14} className="text-success" />
+          <MessageSquare size={14} className="text-[#16a34a]" />
           <span className="text-xs text-text-muted">We respond within 2 hours</span>
         </div>
       </form>

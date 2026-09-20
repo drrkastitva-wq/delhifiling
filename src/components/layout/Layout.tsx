@@ -10,9 +10,7 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
 const NAV_ITEMS = [
   {
-    label: 'eCourt Filing',
-    href: '/ecourt-filing',
-    icon: Scale,
+    label: 'eCourt Filing', href: '/ecourt-filing', icon: Scale,
     desc: 'Litigation • e-Filing • Court Drafting',
     links: [
       { label: 'Civil Court Filing', href: '/ecourt-filing/civil-matters' },
@@ -24,9 +22,7 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'eTender & Procurement',
-    href: '/etender-procurement',
-    icon: FileText,
+    label: 'eTender & Procurement', href: '/etender-procurement', icon: FileText,
     desc: 'Government • Railway • GeM • PSU',
     links: [
       { label: 'Government Tenders', href: '/etender-procurement/government-tenders' },
@@ -37,9 +33,7 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Business Incorporation',
-    href: '/business-incorporation',
-    icon: Building2,
+    label: 'Business Incorporation', href: '/business-incorporation', icon: Building2,
     desc: 'Company • LLP • Partnership • Setup',
     links: [
       { label: 'Private Limited Company', href: '/business-incorporation/private-limited-company' },
@@ -51,9 +45,7 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Annual Compliance',
-    href: '/annual-compliance',
-    icon: ClipboardCheck,
+    label: 'Annual Compliance', href: '/annual-compliance', icon: ClipboardCheck,
     desc: 'ROC • MCA • GST • Tax • Corporate',
     links: [
       { label: 'ROC Annual Filing', href: '/annual-compliance/roc-annual-filing' },
@@ -70,39 +62,43 @@ function NavDropdown({ item }: { item: typeof NAV_ITEMS[0] }) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
+    const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
+    document.addEventListener('mousedown', h)
+    return () => document.removeEventListener('mousedown', h)
   }, [])
 
   return (
-    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <Link
-        href={item.href}
-        className="flex items-center gap-1 px-4 py-5 text-sm font-medium text-navy border-b-2 border-transparent hover:border-gold hover:text-gold transition-all"
-      >
+    <div ref={ref} className="relative h-full flex items-center"
+      onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <Link href={item.href}
+        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium transition-all
+          ${open ? 'bg-green-50 text-[#16a34a]' : 'text-navy hover:bg-gray-50 hover:text-[#16a34a]'}`}>
+        <item.icon size={14} className={open ? 'text-[#16a34a]' : 'text-[#16a34a]'} />
         {item.label}
-        <ChevronDown size={13} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown size={12} className={`transition-transform duration-200 ${open ? 'rotate-180 text-[#16a34a]' : 'text-gray-400'}`} />
       </Link>
+
       {open && (
-        <div className="absolute top-full left-0 w-56 bg-white border border-border shadow-xl z-50 rounded-b-lg overflow-hidden">
-          <div className="bg-navy px-4 py-2.5">
-            <p className="text-gold text-xs font-semibold tracking-wide">{item.label}</p>
-            <p className="text-white/50 text-[10px]">{item.desc}</p>
+        <div className="absolute top-full left-0 mt-1 w-60 bg-white border border-gray-200 shadow-xl rounded-lg z-50 overflow-hidden">
+          <div className="bg-navy px-4 py-3 border-b-2 border-[#16a34a]">
+            <p className="text-[#22c55e] text-xs font-bold tracking-wide uppercase">{item.label}</p>
+            <p className="text-white/50 text-[10px] mt-0.5">{item.desc}</p>
           </div>
-          {item.links.map(link => (
-            <Link key={link.href} href={link.href}
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-text hover:bg-cream hover:text-navy border-b border-border/50 last:border-0 transition">
-              {link.label}
-              <ArrowRight size={12} className="text-gold" />
+          <div className="py-1">
+            {item.links.map(link => (
+              <Link key={link.href} href={link.href}
+                className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-[#16a34a] transition group">
+                <span>{link.label}</span>
+                <ArrowRight size={11} className="text-[#16a34a] opacity-0 group-hover:opacity-100 transition" />
+              </Link>
+            ))}
+          </div>
+          <div className="border-t border-gray-100 px-4 py-2">
+            <Link href={item.href}
+              className="flex items-center gap-1 text-xs font-semibold text-[#16a34a] hover:text-[#15803d] transition">
+              View all services <ArrowRight size={11} />
             </Link>
-          ))}
-          <Link href={item.href}
-            className="flex items-center gap-1 px-4 py-2.5 text-xs font-semibold text-gold bg-cream hover:bg-gold hover:text-navy transition">
-            View All <ArrowRight size={11} />
-          </Link>
+          </div>
         </div>
       )}
     </div>
@@ -119,96 +115,115 @@ export default function Layout({ children, settings }: { children: React.ReactNo
   const address = settings?.address || 'New Delhi, India'
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f4f4f4]">
+    <div className="min-h-screen flex flex-col bg-white">
 
-      {/* Utility bar — MCA style top strip */}
-      <div className="bg-navy text-white text-xs py-1.5 px-4">
+      {/* Top utility bar */}
+      <div className="bg-navy text-white text-xs py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-4 text-white/60">
-            <span className="flex items-center gap-1"><MapPin size={10} />New Delhi, India</span>
-            <span className="flex items-center gap-1"><Clock size={10} />Mon–Sat 9AM–7PM</span>
+          <div className="flex items-center gap-5 text-white/60">
+            <span className="flex items-center gap-1.5"><MapPin size={11} />New Delhi, India</span>
+            <span className="flex items-center gap-1.5"><Clock size={11} />Mon–Sat &nbsp;9 AM – 7 PM</span>
           </div>
           <div className="flex items-center gap-5">
-            <a href={`tel:${phone}`} className="flex items-center gap-1 hover:text-gold transition">
-              <Phone size={10} />{phone}
+            <a href={`tel:${phone}`} className="flex items-center gap-1.5 hover:text-[#22c55e] transition font-medium">
+              <Phone size={11} />{phone}
             </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-1 hover:text-gold transition">
-              <Mail size={10} />{email}
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-[#22c55e] transition">
+              <Mail size={11} />{email}
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main nav — white bar, MCA style */}
-      <nav className="sticky top-0 z-50 bg-white shadow-md">
-        {/* Logo row */}
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 border-b border-border">
-          <Link href="/" className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 bg-navy rounded flex items-center justify-center">
-              <Scale size={22} className="text-gold" />
-            </div>
-            <div>
-              <div className="font-heading font-bold text-navy text-xl leading-none tracking-tight">Delhi Filing</div>
-              <div className="text-[10px] text-text-muted leading-none tracking-widest uppercase mt-0.5">Legal • Corporate • Compliance</div>
-            </div>
-          </Link>
+      {/* Main sticky nav */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4">
 
-          {/* Desktop right actions */}
-          <div className="hidden lg:flex items-center gap-2">
-            <Link href="/search" className="flex items-center gap-1.5 px-3 py-2 text-sm text-text-muted hover:text-navy hover:bg-cream rounded transition">
-              <Search size={15} /> Search
+          {/* Single nav row: logo | nav links | actions */}
+          <div className="flex items-center justify-between h-16 gap-4">
+
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <div className="w-9 h-9 bg-navy rounded-lg flex items-center justify-center">
+                <Scale size={20} className="text-[#22c55e]" />
+              </div>
+              <div>
+                <div className="font-heading font-bold text-navy text-lg leading-none">Delhi Filing</div>
+                <div className="text-[9px] text-gray-400 leading-none tracking-widest uppercase mt-0.5">Legal · Corporate · Compliance</div>
+              </div>
             </Link>
-            <Link href="/dashboard" className="flex items-center gap-1.5 px-3 py-2 text-sm text-text-muted hover:text-navy hover:bg-cream rounded transition">
-              <UserCircle size={15} /> My Account
-            </Link>
-            <a href={`https://wa.me/${whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium border border-navy text-navy rounded hover:bg-navy hover:text-white transition">
-              WhatsApp
-            </a>
-            <Link href="/contact"
-              className="px-4 py-2 text-sm font-semibold bg-gold text-navy rounded hover:bg-gold-dark transition">
-              Free Consultation
-            </Link>
+
+            {/* Desktop nav links — centered */}
+            <div className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+              <Link href="/" className="px-3.5 py-2 rounded-md text-sm font-medium text-navy hover:bg-gray-50 hover:text-[#16a34a] transition">
+                Home
+              </Link>
+              {NAV_ITEMS.map(item => <NavDropdown key={item.href} item={item} />)}
+              <Link href="/blog" className="flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium text-navy hover:bg-gray-50 hover:text-[#16a34a] transition">
+                <BookOpen size={14} className="text-[#16a34a]" />Blog
+              </Link>
+              <Link href="/contact" className="px-3.5 py-2 rounded-md text-sm font-medium text-navy hover:bg-gray-50 hover:text-[#16a34a] transition">
+                Contact
+              </Link>
+            </div>
+
+            {/* Desktop action buttons */}
+            <div className="hidden lg:flex items-center gap-2 shrink-0">
+              <Link href="/search"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-500 hover:text-navy hover:bg-gray-50 rounded-md transition">
+                <Search size={15} />
+              </Link>
+              <Link href="/dashboard"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-500 hover:text-navy hover:bg-gray-50 rounded-md transition">
+                <UserCircle size={15} />
+                <span className="text-sm">Account</span>
+              </Link>
+              <a href={`https://wa.me/${whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-navy border border-navy rounded-lg hover:bg-navy hover:text-white transition">
+                WhatsApp
+              </a>
+              <Link href="/contact"
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold bg-[#16a34a] text-white rounded-lg hover:bg-[#15803d] transition shadow-sm">
+                Free Consultation
+              </Link>
+            </div>
+
+            <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 text-navy rounded-md hover:bg-gray-50">
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
 
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 text-navy">
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Nav links row — MCA style horizontal tabs */}
-        <div className="hidden lg:block bg-white border-b-2 border-gold">
-          <div className="max-w-7xl mx-auto px-4 flex items-center">
-            <Link href="/" className="px-4 py-4 text-sm font-medium text-navy border-b-2 border-transparent hover:border-gold hover:text-gold transition-all">
-              Home
-            </Link>
-            {NAV_ITEMS.map(item => <NavDropdown key={item.href} item={item} />)}
-            <Link href="/blog" className="px-4 py-4 text-sm font-medium text-navy border-b-2 border-transparent hover:border-gold hover:text-gold transition-all flex items-center gap-1">
-              <BookOpen size={13} /> Blog
-            </Link>
-            <Link href="/contact" className="px-4 py-4 text-sm font-medium text-navy border-b-2 border-transparent hover:border-gold hover:text-gold transition-all">
-              Contact
-            </Link>
+          {/* Green underline tab bar — desktop only */}
+          <div className="hidden lg:flex border-t border-gray-100">
+            {NAV_ITEMS.map(item => (
+              <Link key={item.href} href={item.href}
+                className="px-4 py-2 text-xs font-medium text-gray-500 hover:text-[#16a34a] border-b-2 border-transparent hover:border-[#16a34a] transition-all">
+                {item.label}
+              </Link>
+            ))}
+            <Link href="/blog" className="px-4 py-2 text-xs font-medium text-gray-500 hover:text-[#16a34a] border-b-2 border-transparent hover:border-[#16a34a] transition-all">Blog</Link>
+            <Link href="/search" className="px-4 py-2 text-xs font-medium text-gray-500 hover:text-[#16a34a] border-b-2 border-transparent hover:border-[#16a34a] transition-all">Search Services</Link>
           </div>
         </div>
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-border divide-y divide-border">
+          <div className="lg:hidden bg-white border-t border-gray-100 divide-y divide-gray-100">
             {NAV_ITEMS.map(item => (
               <div key={item.href}>
                 <button
                   onClick={() => setMobileExpanded(mobileExpanded === item.href ? null : item.href)}
-                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-navy"
-                >
-                  <span className="flex items-center gap-2"><item.icon size={16} className="text-gold" />{item.label}</span>
-                  <ChevronDown size={14} className={`transition-transform ${mobileExpanded === item.href ? 'rotate-180' : ''}`} />
+                  className="w-full flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-navy">
+                  <span className="flex items-center gap-2.5">
+                    <item.icon size={16} className="text-[#16a34a]" />{item.label}
+                  </span>
+                  <ChevronDown size={14} className={`text-gray-400 transition-transform ${mobileExpanded === item.href ? 'rotate-180' : ''}`} />
                 </button>
                 {mobileExpanded === item.href && (
-                  <div className="bg-cream px-4 pb-3 space-y-1">
+                  <div className="bg-green-50 px-5 pb-3 space-y-0.5">
                     {item.links.map(link => (
                       <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
-                        className="block py-2 text-sm text-text-muted hover:text-navy pl-6 border-l-2 border-gold/30 hover:border-gold transition">
+                        className="flex items-center gap-2 py-2 text-sm text-gray-600 hover:text-[#16a34a] pl-7 border-l-2 border-[#16a34a]/20 hover:border-[#16a34a] transition">
                         {link.label}
                       </Link>
                     ))}
@@ -216,20 +231,22 @@ export default function Layout({ children, settings }: { children: React.ReactNo
                 )}
               </div>
             ))}
-            <Link href="/blog" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-navy">
-              <BookOpen size={16} className="text-gold" /> Blog
+            <Link href="/blog" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-5 py-3.5 text-sm font-semibold text-navy">
+              <BookOpen size={16} className="text-[#16a34a]" />Blog
             </Link>
-            <Link href="/search" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-navy">
-              <Search size={16} className="text-gold" /> Search
+            <Link href="/search" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-5 py-3.5 text-sm font-semibold text-navy">
+              <Search size={16} className="text-[#16a34a]" />Search
             </Link>
-            <Link href="/dashboard" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-navy">
-              <UserCircle size={16} className="text-gold" /> My Account
+            <Link href="/dashboard" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-5 py-3.5 text-sm font-semibold text-navy">
+              <UserCircle size={16} className="text-[#16a34a]" />My Account
             </Link>
-            <div className="px-4 py-3 flex gap-2">
-              <Link href="/contact" onClick={() => setMenuOpen(false)} className="flex-1 text-center py-2.5 bg-gold text-navy text-sm font-semibold rounded">
+            <div className="px-5 py-4 flex gap-3">
+              <Link href="/contact" onClick={() => setMenuOpen(false)}
+                className="flex-1 text-center py-2.5 bg-[#16a34a] text-white text-sm font-semibold rounded-lg">
                 Free Consultation
               </Link>
-              <a href={`tel:${phone}`} className="flex-1 text-center py-2.5 border border-navy text-navy text-sm font-semibold rounded">
+              <a href={`tel:${phone}`}
+                className="flex-1 text-center py-2.5 border border-navy text-navy text-sm font-semibold rounded-lg">
                 Call Now
               </a>
             </div>
@@ -240,43 +257,41 @@ export default function Layout({ children, settings }: { children: React.ReactNo
       <main className="flex-1">{children}</main>
       <WhatsAppButton whatsapp={whatsapp} />
 
-      {/* Footer — MCA style dark multi-column */}
-      <footer className="bg-navy text-white">
-        {/* Main footer grid */}
+      {/* Footer */}
+      <footer className="bg-navy text-white mt-0">
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 border-b border-white/10">
-          {/* Brand col */}
+          {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-gold rounded flex items-center justify-center">
-                <Scale size={18} className="text-navy" />
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 bg-[#16a34a] rounded-lg flex items-center justify-center">
+                <Scale size={18} className="text-white" />
               </div>
               <span className="font-heading font-bold text-lg">Delhi Filing</span>
             </div>
             <p className="text-white/55 text-sm leading-relaxed mb-5">
               Professional Legal, Corporate & Government Filing Services. Trusted by businesses and advocates across India.
             </p>
-            <div className="space-y-2 text-sm">
-              <a href={`tel:${phone}`} className="flex items-center gap-2 text-white/70 hover:text-gold transition">
+            <div className="space-y-2.5 text-sm">
+              <a href={`tel:${phone}`} className="flex items-center gap-2 text-white/70 hover:text-[#22c55e] transition">
                 <Phone size={13} />{phone}
               </a>
-              <a href={`mailto:${email}`} className="flex items-center gap-2 text-white/70 hover:text-gold transition">
+              <a href={`mailto:${email}`} className="flex items-center gap-2 text-white/70 hover:text-[#22c55e] transition">
                 <Mail size={13} />{email}
               </a>
-              <p className="flex items-start gap-2 text-white/50 text-xs mt-1">
+              <p className="flex items-start gap-2 text-white/45 text-xs">
                 <MapPin size={12} className="mt-0.5 shrink-0" />{address}
               </p>
             </div>
           </div>
 
-          {/* Services cols */}
           {NAV_ITEMS.slice(0, 2).map(item => (
             <div key={item.href}>
-              <h4 className="text-gold font-semibold text-sm mb-4 pb-2 border-b border-white/10">{item.label}</h4>
+              <h4 className="text-[#22c55e] font-semibold text-sm mb-4 pb-2 border-b border-white/10">{item.label}</h4>
               <ul className="space-y-2">
                 {item.links.map(link => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-white/55 text-sm hover:text-white transition flex items-center gap-1.5">
-                      <span className="w-1 h-1 bg-gold rounded-full shrink-0" />{link.label}
+                    <Link href={link.href} className="flex items-center gap-2 text-white/55 text-sm hover:text-white transition">
+                      <span className="w-1 h-1 bg-[#16a34a] rounded-full shrink-0" />{link.label}
                     </Link>
                   </li>
                 ))}
@@ -287,12 +302,12 @@ export default function Layout({ children, settings }: { children: React.ReactNo
           <div>
             {NAV_ITEMS.slice(2).map(item => (
               <div key={item.href} className="mb-6 last:mb-0">
-                <h4 className="text-gold font-semibold text-sm mb-3 pb-2 border-b border-white/10">{item.label}</h4>
-                <ul className="space-y-1.5">
-                  {item.links.slice(0, 3).map(link => (
+                <h4 className="text-[#22c55e] font-semibold text-sm mb-3 pb-2 border-b border-white/10">{item.label}</h4>
+                <ul className="space-y-2">
+                  {item.links.slice(0, 4).map(link => (
                     <li key={link.href}>
-                      <Link href={link.href} className="text-white/55 text-sm hover:text-white transition flex items-center gap-1.5">
-                        <span className="w-1 h-1 bg-gold rounded-full shrink-0" />{link.label}
+                      <Link href={link.href} className="flex items-center gap-2 text-white/55 text-sm hover:text-white transition">
+                        <span className="w-1 h-1 bg-[#16a34a] rounded-full shrink-0" />{link.label}
                       </Link>
                     </li>
                   ))}
@@ -302,7 +317,6 @@ export default function Layout({ children, settings }: { children: React.ReactNo
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/35">
           <span>© {new Date().getFullYear()} Delhi Filing. All rights reserved.</span>
           <div className="flex items-center gap-5">
