@@ -20,6 +20,7 @@ export function trackVisit(label: string, href: string) {
 }
 
 export default function RecentlyVisited() {
+  const [mounted, setMounted] = useState(false)
   const [visited, setVisited] = useState<VisitedService[]>([])
 
   useEffect(() => {
@@ -27,7 +28,11 @@ export default function RecentlyVisited() {
       const raw = localStorage.getItem('df_visited')
       if (raw) setVisited(JSON.parse(raw))
     } catch {}
+    setMounted(true)
   }, [])
+
+  // Always render null until after hydration — prevents mismatch
+  if (!mounted || !visited.length) return null
 
   function remove(href: string) {
     const updated = visited.filter(v => v.href !== href)
@@ -35,16 +40,17 @@ export default function RecentlyVisited() {
     localStorage.setItem('df_visited', JSON.stringify(updated))
   }
 
-  if (!visited.length) return null
-
   return (
     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
       <div className="bg-navy px-5 py-3 flex items-center justify-between">
         <h2 className="text-white font-semibold text-sm tracking-wide flex items-center gap-2">
           <Clock size={14} className="text-[#22c55e]" /> Recently Visited
         </h2>
-        <button onClick={() => { setVisited([]); localStorage.removeItem('df_visited') }}
-          className="text-white/40 hover:text-white text-xs transition">Clear</button>
+        <button
+          onClick={() => { setVisited([]); localStorage.removeItem('df_visited') }}
+          className="text-white/40 hover:text-white text-xs transition">
+          Clear
+        </button>
       </div>
       <div className="divide-y divide-gray-100">
         {visited.map(v => (
