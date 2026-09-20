@@ -6,12 +6,12 @@ import '../../styles.css'
 
 type Args = { children: React.ReactNode }
 
+const serverFunction: ServerFunctionClient = async function (args) {
+  'use server'
+  return handleServerFunctions({ ...args, config, importMap })
+}
+
 const Layout = ({ children }: Args) =>
-  RootLayout({
-    config,
-    importMap,
-    children,
-    serverFunction: handleServerFunctions as unknown as ServerFunctionClient,
-  })
+  RootLayout({ config, importMap, children, serverFunction })
 
 export default Layout
