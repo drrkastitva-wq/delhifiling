@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
-import { Clock, CheckCircle, Shield, Award, Phone } from 'lucide-react'
+import Link from 'next/link'
+import { Clock, CheckCircle, Shield, Award, Phone, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import FAQAccordion from '@/components/ui/FAQAccordion'
-import ServiceRequestForm from '@/components/ui/ServiceRequestForm'
 import TrackVisit from '@/components/ui/TrackVisit'
 import { getCategoryBySlug, getSubcategoryBySlug, getServiceBySlug, getSiteSettings } from '@/lib/payload'
 
@@ -131,22 +131,56 @@ export default async function ServicePage({ params }: { params: Promise<{ catego
           )}
         </div>
 
-        {/* Right — sticky form */}
+        {/* Right — sticky CTA */}
         <div className="lg:col-span-1">
           <div className="sticky top-24 space-y-4">
-            <ServiceRequestForm serviceName={service.name} category={category.name} />
-            <div className="bg-navy rounded-xl p-5 text-center">
-              <p className="text-white/60 text-xs mb-3">Prefer to talk directly?</p>
-              <a href={`tel:${phone}`}
-                className="flex items-center justify-center gap-2 w-full py-3 bg-[#16a34a] text-white font-semibold rounded-lg text-sm hover:bg-[#15803d] transition">
-                <Phone size={15} /> {phone}
-              </a>
-              {settings?.whatsapp && (
-                <a href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 mt-2 border border-white/20 text-white font-medium rounded-lg text-sm hover:border-[#16a34a] hover:text-[#22c55e] transition">
-                  WhatsApp Us
+
+            {/* Apply CTA card */}
+            <div className="bg-white border border-[#cccccc] overflow-hidden">
+              <div className="bg-[#003366] px-5 py-4 border-b-4 border-[#FF6600]">
+                <p className="text-[#FFD700] text-[10px] font-bold uppercase tracking-widest mb-1">Apply Now</p>
+                <p className="text-white font-bold text-[15px] leading-tight">{service.name}</p>
+                {category && <p className="text-white/60 text-[11px] mt-0.5">{category.name}</p>}
+              </div>
+              <div className="p-5">
+                <p className="text-[12px] text-[#555] mb-4 leading-relaxed">
+                  Fill our simple form and get a free consultation from our experts within 2 working hours.
+                </p>
+                {[
+                  '100% Free Consultation',
+                  'No Obligation',
+                  'Response within 2 hours',
+                  'Expert Advocates & CAs',
+                ].map(pt => (
+                  <div key={pt} className="flex items-center gap-2 mb-2">
+                    <CheckCircle size={13} className="text-[#16a34a] shrink-0" />
+                    <span className="text-[12px] text-[#333]">{pt}</span>
+                  </div>
+                ))}
+                <Link
+                  href={`/apply/${serviceSlug}?service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(category.name)}&back=${encodeURIComponent(`/${categorySlug}/${subcategorySlug}/${serviceSlug}`)}`}
+                  className="flex items-center justify-center gap-2 w-full py-3 mt-4 bg-[#FF6600] hover:bg-[#e65c00] text-white font-bold text-[13px] no-underline transition">
+                  Apply for This Service <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Call box */}
+            <div className="bg-white border border-[#cccccc]">
+              <div className="section-header">Speak to an Expert</div>
+              <div className="p-4 text-center">
+                <p className="text-[12px] text-[#555] mb-3">Mon–Sat, 9 AM to 7 PM</p>
+                <a href={`tel:${phone}`}
+                  className="block w-full py-2.5 bg-[#003366] hover:bg-[#004080] text-white font-bold text-[13px] no-underline transition">
+                  {phone}
                 </a>
-              )}
+                {settings?.whatsapp && (
+                  <a href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
+                    className="block w-full py-2.5 mt-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-[13px] no-underline transition">
+                    WhatsApp Us
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
