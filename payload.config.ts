@@ -55,15 +55,15 @@ export default buildConfig({
   typescript: { outputFile: path.resolve(dirname, 'src/types/payload-types.ts') },
   db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } }),
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.SES_FROM_EMAIL || 'info@delhifiling.com',
+    defaultFromAddress: 'admin@delhifiling.com',
     defaultFromName: 'Delhi Filing',
     transport: nodemailer.createTransport({
-      host: `email-smtp.${process.env.AWS_REGION || 'ap-south-1'}.amazonaws.com`,
-      port: 587,
-      secure: false,
+      host: 'smtp.zoho.in',
+      port: 465,
+      secure: true,
       auth: {
-        user: process.env.AWS_SES_SMTP_USER || '',
-        pass: process.env.AWS_SES_SMTP_PASS || '',
+        user: 'admin@delhifiling.com',
+        pass: 'P3duiaiTQEB6',
       },
     }),
   }),

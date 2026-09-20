@@ -2,10 +2,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import {
-  CheckCircle, Loader2, ChevronDown, User, Phone, Mail,
-  MapPin, FileText, ArrowLeft, Shield, Clock, Award
-} from 'lucide-react'
+import { CheckCircle, Loader2, ChevronDown, User, Phone, Mail, MapPin, FileText, ArrowLeft, Shield, Clock, Award } from 'lucide-react'
 
 const STATES = [
   'Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat',
@@ -13,9 +10,11 @@ const STATES = [
   'Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab',
   'Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh',
   'Uttarakhand','West Bengal','Delhi','Jammu & Kashmir','Ladakh',
-  'Andaman & Nicobar','Chandigarh','Dadra & Nagar Haveli','Daman & Diu',
-  'Lakshadweep','Puducherry',
+  'Andaman & Nicobar','Chandigarh','Dadra & Nagar Haveli','Daman & Diu','Lakshadweep','Puducherry',
 ]
+
+const inp = "w-full pl-10 pr-4 py-3.5 border-2 border-[#e0e0e0] text-[14px] text-[#222] bg-white focus:outline-none focus:border-[#16a34a] focus:ring-2 focus:ring-[#16a34a]/10 rounded-lg transition placeholder:text-[#aaa]"
+const label = "block text-[13px] font-bold text-[#003366] mb-2"
 
 export default function ApplyFormClient() {
   const params = useSearchParams()
@@ -23,14 +22,10 @@ export default function ApplyFormClient() {
   const category = params.get('category') || ''
   const back = params.get('back') || '/'
 
-  const [form, setForm] = useState({
-    name: '', phone: '', email: '', state: '', city: '', message: ''
-  })
+  const [form, setForm] = useState({ name: '', phone: '', email: '', state: '', city: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-
-  const set = (k: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-      setForm(f => ({ ...f, [k]: e.target.value }))
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setForm(f => ({ ...f, [k]: e.target.value }))
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,22 +39,20 @@ export default function ApplyFormClient() {
   }
 
   if (status === 'success') return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: '#f0f0f0' }}>
-      <div className="bg-white border border-[#cccccc] max-w-md w-full mx-4 text-center overflow-hidden">
-        <div className="bg-[#003366] px-6 py-4 border-b-4 border-[#FF6600]">
-          <p className="text-[#FFD700] font-bold text-[13px] uppercase tracking-wider">Delhi Filing</p>
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(135deg,#f0f7f0 0%,#e8f5e9 100%)' }}>
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
+        <div className="bg-[#003366] px-6 py-5 border-b-4 border-[#16a34a] text-center">
+          <p className="text-[#90EE90] font-bold text-[11px] uppercase tracking-widest">Delhi Filing</p>
         </div>
-        <div className="p-10">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-            style={{ background: '#e8f5e9' }}>
-            <CheckCircle size={32} className="text-[#16a34a]" />
+        <div className="p-10 text-center">
+          <div className="w-20 h-20 rounded-full bg-green-50 border-4 border-[#16a34a] flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={40} className="text-[#16a34a]" />
           </div>
-          <h2 className="text-[#003366] font-bold text-xl mb-2">Application Submitted!</h2>
-          <p className="text-[#555] text-[13px] mb-1">Reference: <span className="font-semibold text-[#003366]">{serviceName}</span></p>
-          <p className="text-[#555] text-[13px] mb-6">Our team will contact you within <strong>2 working hours</strong>.</p>
-          <Link href={back}
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#FF6600] text-white font-semibold text-[13px] rounded-sm no-underline hover:bg-[#e65c00] transition">
-            <ArrowLeft size={14} /> Back to Service
+          <h2 className="text-[#003366] font-bold text-2xl mb-2">Application Submitted!</h2>
+          <p className="text-[#555] text-[14px] mb-1">Service: <span className="font-bold text-[#003366]">{serviceName}</span></p>
+          <p className="text-[#555] text-[14px] mb-8">Our expert will contact you within <strong>2 working hours</strong>.</p>
+          <Link href={back} className="inline-flex items-center gap-2 px-8 py-3 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-[14px] rounded-xl no-underline transition shadow-lg">
+            <ArrowLeft size={16} /> Back to Service
           </Link>
         </div>
       </div>
@@ -67,216 +60,206 @@ export default function ApplyFormClient() {
   )
 
   return (
-    <div className="min-h-screen" style={{ background: '#f0f0f0' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg,#f0f7f0 0%,#e8f5e9 100%)' }}>
 
-      {/* Gov header bar */}
-      <div className="bg-gradient-to-r from-[#001f4d] via-[#003366] to-[#004d99]">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <div className="w-9 h-9 bg-[#FF6600] rounded flex items-center justify-center shrink-0">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#001f4d] via-[#003366] to-[#004d99] shadow-lg">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 no-underline">
+            <div className="w-10 h-10 bg-[#16a34a] rounded-lg flex items-center justify-center shadow">
               <span className="text-white font-bold text-sm">DF</span>
             </div>
             <div>
-              <div className="text-white font-bold text-[15px] leading-tight">Delhi Filing</div>
-              <div className="text-[#FFD700] text-[10px]">Legal · Corporate · Compliance</div>
+              <div className="text-white font-bold text-[16px] leading-tight">Delhi Filing</div>
+              <div className="text-[#90EE90] text-[10px] tracking-wider">Legal · Corporate · Compliance</div>
             </div>
           </Link>
-          <Link href={back}
-            className="flex items-center gap-1.5 text-white/80 text-[12px] no-underline hover:text-white transition">
-            <ArrowLeft size={13} /> Back
+          <Link href={back} className="flex items-center gap-1.5 text-white/80 text-[13px] no-underline hover:text-white transition bg-white/10 px-3 py-1.5 rounded-lg">
+            <ArrowLeft size={14} /> Back
           </Link>
         </div>
+        <div className="h-1 bg-[#16a34a]" />
       </div>
 
-      {/* Orange accent bar */}
-      <div className="h-1 bg-[#FF6600]" />
+      <div className="max-w-5xl mx-auto px-4 py-8">
 
-      <div className="max-w-4xl mx-auto px-4 py-6">
-
-        {/* Page title */}
-        <div className="mb-5">
-          <div className="flex items-center gap-2 text-[11px] text-[#666] mb-2">
-            <Link href="/" className="no-underline hover:text-[#CC0000]">Home</Link>
-            <span>›</span>
-            {category && <><span className="text-[#666]">{category}</span><span>›</span></>}
-            <span className="text-[#333]">{serviceName}</span>
-          </div>
-          <h1 className="text-[#003366] font-bold text-xl">Service Application Form</h1>
-          <p className="text-[#555] text-[13px] mt-1">Fill in the details below. Our expert will contact you within 2 working hours.</p>
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[12px] text-[#666] mb-6">
+          <Link href="/" className="no-underline hover:text-[#16a34a] transition">Home</Link>
+          <span className="text-[#ccc]">›</span>
+          {category && <><span>{category}</span><span className="text-[#ccc]">›</span></>}
+          <span className="text-[#333] font-medium">{serviceName}</span>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-5">
+        {/* Page heading */}
+        <div className="mb-8 text-center">
+          <h1 className="text-[#003366] font-bold text-3xl md:text-4xl mb-2">Service Application</h1>
+          <p className="text-[#555] text-[15px]">Fill in your details — our expert will call you within <strong>2 working hours</strong></p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-6">
 
           {/* FORM — 2/3 */}
           <div className="lg:col-span-2">
-            <div className="bg-white border border-[#cccccc]">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
 
               {/* Form header */}
-              <div className="bg-[#003366] px-5 py-3 border-b-4 border-[#FF6600] flex items-center justify-between">
-                <div>
-                  <p className="text-[#FFD700] text-[10px] font-bold uppercase tracking-widest">Service Request</p>
-                  <p className="text-white font-bold text-[15px] leading-tight mt-0.5">{serviceName}</p>
-                </div>
-                {category && (
-                  <span className="text-[11px] text-white/60 bg-white/10 px-2 py-1 rounded-sm">{category}</span>
-                )}
+              <div className="bg-[#003366] px-6 py-5 border-b-4 border-[#16a34a]">
+                <p className="text-[#90EE90] text-[11px] font-bold uppercase tracking-widest mb-1">Service Request</p>
+                <p className="text-white font-bold text-[20px] leading-tight">{serviceName}</p>
+                {category && <p className="text-white/60 text-[13px] mt-1">{category}</p>}
               </div>
 
-              <form onSubmit={handleSubmit} className="p-6 space-y-5">
+              <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6">
 
-                {/* Personal details */}
+                {/* Section: Personal */}
                 <div>
-                  <p className="text-[11px] font-bold text-[#FF6600] uppercase tracking-wider mb-3 pb-1 border-b border-[#eeeeee]">
-                    Personal Information
-                  </p>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-6 h-6 bg-[#16a34a] rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0">1</div>
+                    <p className="text-[13px] font-bold text-[#003366] uppercase tracking-wider">Personal Information</p>
+                    <div className="flex-1 h-px bg-[#e0e0e0]" />
+                  </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[12px] font-semibold text-[#003366] mb-1.5">
-                        Full Name <span className="text-[#CC0000]">*</span>
-                      </label>
+                      <label className={label}>Full Name <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <User size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999]" />
-                        <input required value={form.name} onChange={set('name')}
-                          placeholder="Enter your full name"
-                          className="w-full pl-8 pr-3 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/20 bg-white" />
+                        <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
+                        <input required value={form.name} onChange={set('name')} placeholder="Enter your full name" className={inp} />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[12px] font-semibold text-[#003366] mb-1.5">
-                        Mobile Number <span className="text-[#CC0000]">*</span>
-                      </label>
+                      <label className={label}>Mobile Number <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <Phone size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999]" />
-                        <input required type="tel" value={form.phone} onChange={set('phone')}
-                          placeholder="+91 XXXXX XXXXX"
-                          className="w-full pl-8 pr-3 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/20 bg-white" />
+                        <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
+                        <input required type="tel" value={form.phone} onChange={set('phone')} placeholder="+91 XXXXX XXXXX" className={inp} />
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[12px] font-semibold text-[#003366] mb-1.5">
-                    Email Address <span className="text-[#CC0000]">*</span>
-                  </label>
+                  <label className={label}>Email Address <span className="text-red-500">*</span></label>
                   <div className="relative">
-                    <Mail size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999]" />
-                    <input required type="email" value={form.email} onChange={set('email')}
-                      placeholder="your@email.com"
-                      className="w-full pl-8 pr-3 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/20 bg-white" />
+                    <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
+                    <input required type="email" value={form.email} onChange={set('email')} placeholder="your@email.com" className={inp} />
                   </div>
                 </div>
 
-                {/* Location */}
+                {/* Section: Location */}
                 <div>
-                  <p className="text-[11px] font-bold text-[#FF6600] uppercase tracking-wider mb-3 pb-1 border-b border-[#eeeeee]">
-                    Location
-                  </p>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-6 h-6 bg-[#16a34a] rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0">2</div>
+                    <p className="text-[13px] font-bold text-[#003366] uppercase tracking-wider">Location</p>
+                    <div className="flex-1 h-px bg-[#e0e0e0]" />
+                  </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[12px] font-semibold text-[#003366] mb-1.5">
-                        State <span className="text-[#CC0000]">*</span>
-                      </label>
+                      <label className={label}>State <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999]" />
-                        <select required value={form.state} onChange={set('state')}
-                          className="w-full pl-8 pr-8 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] bg-white appearance-none">
+                        <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
+                        <select required value={form.state} onChange={set('state')} className={`${inp} appearance-none pr-10`}>
                           <option value="">Select State</option>
                           {STATES.map(s => <option key={s} value={s}>{s}</option>)}
                         </select>
-                        <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#999] pointer-events-none" />
+                        <ChevronDown size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#999] pointer-events-none" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[12px] font-semibold text-[#003366] mb-1.5">
-                        City <span className="text-[#CC0000]">*</span>
-                      </label>
+                      <label className={label}>City <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999]" />
-                        <input required value={form.city} onChange={set('city')}
-                          placeholder="Your city"
-                          className="w-full pl-8 pr-3 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/20 bg-white" />
+                        <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
+                        <input required value={form.city} onChange={set('city')} placeholder="Your city" className={inp} />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Message */}
+                {/* Section: Details */}
                 <div>
-                  <p className="text-[11px] font-bold text-[#FF6600] uppercase tracking-wider mb-3 pb-1 border-b border-[#eeeeee]">
-                    Requirement Details
-                  </p>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-6 h-6 bg-[#16a34a] rounded-full flex items-center justify-center text-white text-[11px] font-bold shrink-0">3</div>
+                    <p className="text-[13px] font-bold text-[#003366] uppercase tracking-wider">Requirement Details</p>
+                    <div className="flex-1 h-px bg-[#e0e0e0]" />
+                  </div>
                   <div className="relative">
-                    <FileText size={13} className="absolute left-3 top-3 text-[#999]" />
-                    <textarea rows={4} value={form.message} onChange={set('message')}
-                      placeholder="Describe your requirement in brief — case details, urgency, any specific questions..."
-                      className="w-full pl-8 pr-3 py-2.5 border border-[#cccccc] text-[13px] text-[#333] focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/20 bg-white resize-none" />
+                    <FileText size={16} className="absolute left-3 top-4 text-[#16a34a]" />
+                    <textarea rows={5} value={form.message} onChange={set('message')}
+                      placeholder="Describe your requirement — case details, urgency, specific questions, documents available..."
+                      className={`${inp} resize-none`} />
                   </div>
                 </div>
 
                 {status === 'error' && (
-                  <div className="bg-red-50 border border-red-200 px-4 py-3 text-[12px] text-red-700">
-                    Submission failed. Please call us directly at +91 99119 91330.
+                  <div className="bg-red-50 border-l-4 border-red-500 px-4 py-3 rounded-lg text-[13px] text-red-700">
+                    Submission failed. Please call us at <strong>+91 99119 91330</strong> or WhatsApp us directly.
                   </div>
                 )}
 
-                {/* Submit */}
-                <div className="pt-1">
-                  <button type="submit" disabled={status === 'loading'}
-                    className="w-full py-3 bg-[#FF6600] hover:bg-[#e65c00] text-white font-bold text-[14px] transition flex items-center justify-center gap-2 disabled:opacity-60">
-                    {status === 'loading'
-                      ? <><Loader2 size={16} className="animate-spin" /> Submitting Application...</>
-                      : 'Submit Application'}
-                  </button>
-                  <p className="text-center text-[11px] text-[#888] mt-2">
-                    Free consultation · No obligation · Response within 2 hours
-                  </p>
-                </div>
+                <button type="submit" disabled={status === 'loading'}
+                  className="w-full py-4 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-[16px] rounded-xl transition shadow-lg flex items-center justify-center gap-3 disabled:opacity-60">
+                  {status === 'loading'
+                    ? <><Loader2 size={20} className="animate-spin" /> Submitting...</>
+                    : <><CheckCircle size={20} /> Submit Application</>}
+                </button>
+
+                <p className="text-center text-[12px] text-[#888]">
+                  🔒 Your information is 100% confidential · Free consultation · No obligation
+                </p>
               </form>
             </div>
           </div>
 
-          {/* RIGHT sidebar — 1/3 */}
-          <div className="space-y-4">
+          {/* RIGHT sidebar */}
+          <div className="space-y-5">
 
             {/* Why us */}
-            <div className="bg-white border border-[#cccccc]">
-              <div className="section-header">Why Delhi Filing?</div>
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="bg-[#003366] px-5 py-3 border-b-4 border-[#16a34a]">
+                <p className="text-[#90EE90] text-[11px] font-bold uppercase tracking-wider">Why Delhi Filing?</p>
+              </div>
               {[
                 { icon: Shield, text: '100% Confidential handling' },
-                { icon: Award,  text: 'Expert advocates & CAs' },
+                { icon: Award,  text: 'Expert Advocates, CAs & CSs' },
                 { icon: Clock,  text: 'Response within 2 hours' },
                 { icon: CheckCircle, text: 'End-to-end service support' },
               ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-3 px-4 py-3 border-b border-[#eeeeee] last:border-0">
-                  <div className="w-7 h-7 bg-[#003366] rounded flex items-center justify-center shrink-0">
-                    <Icon size={13} className="text-white" />
+                <div key={text} className="flex items-center gap-3 px-5 py-3.5 border-b border-[#f0f0f0] last:border-0">
+                  <div className="w-8 h-8 bg-[#e8f5e9] rounded-lg flex items-center justify-center shrink-0">
+                    <Icon size={15} className="text-[#16a34a]" />
                   </div>
-                  <span className="text-[12px] text-[#333]">{text}</span>
+                  <span className="text-[13px] text-[#333]">{text}</span>
                 </div>
               ))}
             </div>
 
-            {/* Call box */}
-            <div className="bg-white border border-[#cccccc]">
-              <div className="section-header">Prefer to Call?</div>
-              <div className="p-4 text-center">
-                <p className="text-[12px] text-[#555] mb-3">Mon–Sat, 9 AM to 7 PM</p>
+            {/* Contact */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="bg-[#003366] px-5 py-3 border-b-4 border-[#16a34a]">
+                <p className="text-[#90EE90] text-[11px] font-bold uppercase tracking-wider">Prefer Direct Contact?</p>
+              </div>
+              <div className="p-5 space-y-3">
+                <p className="text-[12px] text-[#555] text-center">Mon–Fri, 8 AM to 8 PM</p>
                 <a href="tel:+919911991330"
-                  className="block w-full py-2.5 bg-[#003366] hover:bg-[#004080] text-white font-bold text-[13px] no-underline transition">
+                  className="flex items-center justify-center gap-2.5 w-full py-3 bg-[#003366] hover:bg-[#004080] text-white font-bold text-[14px] rounded-xl no-underline transition shadow">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                   +91 99119 91330
                 </a>
-                <a href="https://wa.me/919911991330" target="_blank" rel="noopener noreferrer"
-                  className="block w-full py-2.5 mt-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-[13px] no-underline transition">
+                <a href="https://wa.me/919911991330?text=Hello%21%20I%20need%20help%20with%20a%20legal%20service." target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2.5 w-full py-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-[14px] rounded-xl no-underline transition shadow">
+                  <svg viewBox="0 0 32 32" width="18" height="18" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.472 2.027 7.774L0 32l8.437-2.01A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.27 19.471c-.398-.199-2.354-1.162-2.72-1.294-.365-.133-.631-.199-.897.199-.265.398-1.029 1.294-1.261 1.56-.232.265-.465.298-.863.1-.398-.2-1.681-.62-3.202-1.977-1.183-1.056-1.982-2.36-2.214-2.758-.232-.398-.025-.613.174-.811.179-.178.398-.465.597-.697.2-.232.266-.398.398-.664.133-.265.067-.497-.033-.697-.1-.199-.897-2.162-1.229-2.96-.324-.778-.653-.672-.897-.685l-.764-.013c-.265 0-.697.1-1.062.497-.365.398-1.394 1.362-1.394 3.325s1.427 3.857 1.626 4.123c.199.265 2.808 4.287 6.803 6.013.951.41 1.693.655 2.271.839.954.304 1.823.261 2.51.158.766-.114 2.354-.962 2.686-1.891.332-.93.332-1.727.232-1.891-.099-.166-.365-.265-.763-.464z"/></svg>
                   WhatsApp Us
+                </a>
+                <a href="mailto:admin@delhifiling.com"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 border-2 border-[#003366] text-[#003366] hover:bg-[#003366] hover:text-white font-semibold text-[13px] rounded-xl no-underline transition">
+                  <Mail size={15} /> admin@delhifiling.com
                 </a>
               </div>
             </div>
 
-            {/* Notice */}
-            <div className="bg-[#fffbeb] border border-[#fde68a] px-4 py-3">
-              <p className="text-[11px] text-[#92400e] leading-relaxed">
-                <strong>Note:</strong> All information submitted is kept strictly confidential and used only for service delivery purposes.
+            {/* Confidentiality note */}
+            <div className="bg-[#e8f5e9] border border-[#a5d6a7] rounded-xl px-5 py-4">
+              <p className="text-[12px] text-[#1a5c1a] leading-relaxed">
+                🔒 <strong>Confidential:</strong> All information is kept strictly private and used only for service delivery.
               </p>
             </div>
           </div>

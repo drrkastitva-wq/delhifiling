@@ -54,11 +54,15 @@ export default function HeroSection({ banners }: { banners: any[] }) {
         /* ── Image slide: full image, no crop, natural height ── */
         <div className="relative w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={slide.backgroundImage.url}
-            alt={slide.heading || ''}
-            style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '90vh', objectFit: 'contain', background: '#000' }}
-          />
+          {slide.link ? (
+            <a href={slide.link} target="_blank" rel="noopener noreferrer">
+              <img src={slide.backgroundImage.url} alt={slide.heading || ''}
+                style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '90vh', objectFit: 'contain', background: '#000' }} />
+            </a>
+          ) : (
+            <img src={slide.backgroundImage.url} alt={slide.heading || ''}
+              style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '90vh', objectFit: 'contain', background: '#000' }} />
+          )}
           {/* Prev/Next over image */}
           {slides.length > 1 && (
             <>

@@ -21,6 +21,7 @@ export const HeroBanners: CollectionConfig = {
     { name: 'ctaSecondaryText', type: 'text' },
     { name: 'ctaSecondaryLink', type: 'text' },
     { name: 'backgroundImage', type: 'upload', relationTo: 'media' },
+    { name: 'link', type: 'text', admin: { description: 'Optional: clicking the banner goes to this URL' } },
     { name: 'order', type: 'number', defaultValue: 0 },
     { name: 'active', type: 'checkbox', defaultValue: true },
   ],
