@@ -39,52 +39,55 @@ export default function HeroSection({ banners }: { banners: any[] }) {
   }, [paused, next, slides.length])
 
   const slide = slides[current]
+  const hasImage = !!slide.backgroundImage?.url
 
   return (
     <section className="relative overflow-hidden min-h-[400px] flex items-center"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
 
-      {slide.backgroundImage?.url
-        ? <Image src={slide.backgroundImage.url} alt="" fill className="object-cover" priority />
+      {hasImage
+        ? <Image src={slide.backgroundImage.url} alt={slide.heading || ''} fill className="object-cover" priority />
         : <div className="absolute inset-0 bg-gradient-to-br from-[#060f22] via-[#0F1C3F] to-[#0f2a1a]" />
       }
 
-      {/* Subtle grid overlay */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `repeating-linear-gradient(0deg,transparent,transparent 39px,#16a34a 39px,#16a34a 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#16a34a 39px,#16a34a 40px)`
-      }} />
-
-      {/* Green left accent */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#16a34a]" />
-
-      <div className="relative w-full max-w-7xl mx-auto px-8 py-16 md:py-24">
-        <div className="max-w-2xl">
-          <div className="flex items-center gap-2.5 mb-5">
-            <div className="h-px w-10 bg-[#16a34a]" />
-            <span className="text-[#22c55e] text-xs font-bold tracking-widest uppercase">Delhi Filing</span>
+      {!hasImage && (
+        <>
+          {/* Subtle grid overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `repeating-linear-gradient(0deg,transparent,transparent 39px,#16a34a 39px,#16a34a 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#16a34a 39px,#16a34a 40px)`
+          }} />
+          {/* Green left accent */}
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#16a34a]" />
+          <div className="relative w-full max-w-7xl mx-auto px-8 py-16 md:py-24">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2.5 mb-5">
+                <div className="h-px w-10 bg-[#16a34a]" />
+                <span className="text-[#22c55e] text-xs font-bold tracking-widest uppercase">Delhi Filing</span>
+              </div>
+              <h1 className="font-heading text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-5">
+                {slide.heading}
+              </h1>
+              {slide.subheading && (
+                <p className="text-white/60 text-base md:text-lg mb-8 leading-relaxed max-w-xl">{slide.subheading}</p>
+              )}
+              <div className="flex flex-wrap gap-3">
+                {slide.ctaPrimaryText && (
+                  <Link href={slide.ctaPrimaryLink || '/contact'}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#16a34a] text-white font-semibold rounded-lg text-sm hover:bg-[#15803d] transition shadow-lg">
+                    {slide.ctaPrimaryText} <ArrowRight size={15} />
+                  </Link>
+                )}
+                {slide.ctaSecondaryText && (
+                  <Link href={slide.ctaSecondaryLink || '/'}
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-white/25 text-white font-medium rounded-lg text-sm hover:border-[#16a34a] hover:text-[#22c55e] transition">
+                    {slide.ctaSecondaryText}
+                  </Link>
+                )}
+              </div>
+            </div>
           </div>
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-5">
-            {slide.heading}
-          </h1>
-          {slide.subheading && (
-            <p className="text-white/60 text-base md:text-lg mb-8 leading-relaxed max-w-xl">{slide.subheading}</p>
-          )}
-          <div className="flex flex-wrap gap-3">
-            {slide.ctaPrimaryText && (
-              <Link href={slide.ctaPrimaryLink || '/contact'}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#16a34a] text-white font-semibold rounded-lg text-sm hover:bg-[#15803d] transition shadow-lg">
-                {slide.ctaPrimaryText} <ArrowRight size={15} />
-              </Link>
-            )}
-            {slide.ctaSecondaryText && (
-              <Link href={slide.ctaSecondaryLink || '/'}
-                className="inline-flex items-center gap-2 px-6 py-3 border border-white/25 text-white font-medium rounded-lg text-sm hover:border-[#16a34a] hover:text-[#22c55e] transition">
-                {slide.ctaSecondaryText}
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
+        </>
+      )}
 
       {slides.length > 1 && (
         <>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {
   Menu, X, Phone, Mail, Search, UserCircle, Scale,
   FileText, Building2, ClipboardCheck, ChevronDown,
-  MapPin, Clock, ArrowRight, BookOpen
+  MapPin, ArrowRight, BookOpen
 } from 'lucide-react'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
@@ -116,24 +116,6 @@ export default function Layout({ children, settings }: { children: React.ReactNo
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-
-      {/* Top utility bar */}
-      <div className="bg-navy text-white text-xs py-2 px-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-5 text-white/60">
-            <span className="flex items-center gap-1.5"><MapPin size={11} />New Delhi, India</span>
-            <span className="flex items-center gap-1.5"><Clock size={11} />Mon–Sat &nbsp;9 AM – 7 PM</span>
-          </div>
-          <div className="flex items-center gap-5">
-            <a href={`tel:${phone}`} className="flex items-center gap-1.5 hover:text-[#22c55e] transition font-medium">
-              <Phone size={11} />{phone}
-            </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-[#22c55e] transition">
-              <Mail size={11} />{email}
-            </a>
-          </div>
-        </div>
-      </div>
 
       {/* Main sticky nav */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
