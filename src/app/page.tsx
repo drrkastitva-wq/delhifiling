@@ -1,32 +1,18 @@
 import Layout from '@/components/layout/Layout'
 import HeroSection from '@/components/sections/HeroSection'
 import InquiryForm from '@/components/ui/InquiryForm'
+import RecentlyVisited from '@/components/ui/RecentlyVisited'
 import Link from 'next/link'
 import { getHeroBanners, getSiteSettings, getBlogPosts } from '@/lib/payload'
-import { Scale, FileText, Building2, ClipboardCheck, ArrowRight, Phone, Clock, Shield, Award, CheckCircle } from 'lucide-react'
+import { Scale, FileText, Building2, ClipboardCheck, ArrowRight, Phone, Clock, Shield, Award } from 'lucide-react'
 
 export const revalidate = 3600
 
 const QUICK_LINKS = [
-  { label: 'eCourt Filing',          sub: 'Civil • Criminal • HC • SC',   href: '/ecourt-filing',          icon: Scale,         bg: 'bg-navy' },
-  { label: 'eTender & Procurement',  sub: 'Govt • Railway • GeM • PSU',   href: '/etender-procurement',    icon: FileText,      bg: 'bg-[#1a4a1a]' },
-  { label: 'Business Incorporation', sub: 'Pvt Ltd • LLP • OPC • NGO',    href: '/business-incorporation', icon: Building2,     bg: 'bg-[#1a3a6b]' },
-  { label: 'Annual Compliance',      sub: 'ROC • GST • Tax • MCA',        href: '/annual-compliance',      icon: ClipboardCheck,bg: 'bg-[#2d1a4a]' },
-]
-
-const SERVICES = [
-  { label: 'Bail Application',        href: '/ecourt-filing/bail-applications' },
-  { label: 'Private Limited Company', href: '/business-incorporation/private-limited-company' },
-  { label: 'GST Registration',        href: '/annual-compliance/gst-returns' },
-  { label: 'GeM Registration',        href: '/etender-procurement/gem-registration' },
-  { label: 'LLP Registration',        href: '/business-incorporation/llp-registration' },
-  { label: 'ROC Annual Filing',       href: '/annual-compliance/roc-annual-filing' },
-  { label: 'Writ Petition',           href: '/ecourt-filing/high-court-supreme-court' },
-  { label: 'Tender Documentation',    href: '/etender-procurement/tender-documentation' },
-  { label: 'Income Tax Filing',       href: '/annual-compliance/income-tax-filing' },
-  { label: 'Legal Drafting',          href: '/ecourt-filing/legal-drafting' },
-  { label: 'Section 8 / NGO',         href: '/business-incorporation/section-8-ngo' },
-  { label: 'Director Compliance',     href: '/annual-compliance/director-compliance' },
+  { label: 'eCourt Filing',          sub: 'Civil • Criminal • HC • SC',  href: '/ecourt-filing',          icon: Scale,          bg: 'bg-navy' },
+  { label: 'eTender & Procurement',  sub: 'Govt • Railway • GeM • PSU',  href: '/etender-procurement',    icon: FileText,       bg: 'bg-[#1a4a1a]' },
+  { label: 'Business Incorporation', sub: 'Pvt Ltd • LLP • OPC • NGO',   href: '/business-incorporation', icon: Building2,      bg: 'bg-[#1a3a6b]' },
+  { label: 'Annual Compliance',      sub: 'ROC • GST • Tax • MCA',       href: '/annual-compliance',      icon: ClipboardCheck, bg: 'bg-[#2d1a4a]' },
 ]
 
 export default async function HomePage() {
@@ -40,7 +26,6 @@ export default async function HomePage() {
   return (
     <Layout settings={settings}>
 
-      {/* Hero */}
       <HeroSection banners={banners} />
 
       {/* Quick Links Band */}
@@ -62,29 +47,14 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* Main 2-col content */}
+      {/* Main 2-col */}
       <div className="max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-3 gap-6">
 
-        {/* LEFT col — 2/3 */}
+        {/* LEFT — 2/3 */}
         <div className="lg:col-span-2 space-y-6">
 
-          {/* Popular Services */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-            <div className="bg-navy px-5 py-3 flex items-center justify-between">
-              <h2 className="text-white font-semibold text-sm tracking-wide">Popular Services</h2>
-              <Link href="/search" className="text-[#22c55e] text-xs font-medium hover:underline">View All →</Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3">
-              {SERVICES.map((s, i) => (
-                <Link key={s.href} href={s.href}
-                  className={`flex items-center gap-2.5 px-4 py-3.5 text-sm text-navy font-medium hover:bg-green-50 hover:text-[#16a34a] transition group
-                    ${i % 3 !== 2 ? 'border-r border-gray-100' : ''} border-b border-gray-100`}>
-                  <CheckCircle size={13} className="text-[#16a34a] shrink-0" />
-                  <span className="group-hover:translate-x-0.5 transition-transform leading-tight">{s.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
+          {/* Recently Visited — client component, shows only if user has history */}
+          <RecentlyVisited />
 
           {/* Latest Updates */}
           {posts.length > 0 && (
@@ -111,7 +81,7 @@ export default async function HomePage() {
             </div>
           )}
 
-          {/* Trust row */}
+          {/* Trust tiles */}
           <div className="grid grid-cols-3 gap-4">
             {[
               { icon: Shield, title: '100% Confidential', desc: 'Your documents handled with complete privacy and discretion.' },
@@ -129,13 +99,10 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* RIGHT col — 1/3 */}
+        {/* RIGHT — 1/3 */}
         <div className="space-y-5">
-
-          {/* Inquiry form */}
           <InquiryForm />
 
-          {/* Call box */}
           <div className="bg-navy rounded-lg p-5 text-center">
             <div className="w-11 h-11 bg-[#16a34a]/20 rounded-full flex items-center justify-center mx-auto mb-3">
               <Phone size={20} className="text-[#22c55e]" />
@@ -148,7 +115,6 @@ export default async function HomePage() {
             </a>
           </div>
 
-          {/* Category quick links */}
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
             <div className="bg-navy px-4 py-3">
               <p className="text-white text-xs font-semibold uppercase tracking-wider">Browse by Category</p>
@@ -174,12 +140,10 @@ export default async function HomePage() {
             <p className="text-white/75 text-sm mt-1">Free consultation — no obligation. Our experts respond within 2 hours.</p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <a href={`tel:${phone}`}
-              className="px-5 py-2.5 bg-navy text-white font-semibold rounded-lg text-sm hover:bg-navy-dark transition">
+            <a href={`tel:${phone}`} className="px-5 py-2.5 bg-navy text-white font-semibold rounded-lg text-sm hover:bg-navy-dark transition">
               Call Now
             </a>
-            <Link href="/contact"
-              className="px-5 py-2.5 bg-white text-[#16a34a] font-semibold rounded-lg text-sm hover:bg-green-50 transition">
+            <Link href="/contact" className="px-5 py-2.5 bg-white text-[#16a34a] font-semibold rounded-lg text-sm hover:bg-green-50 transition">
               Get Started
             </Link>
           </div>

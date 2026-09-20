@@ -12,7 +12,7 @@ const ses = new SESClient({
 
 export async function POST(req: NextRequest) {
   try {
-    let name = '', phone = '', email = '', message = '', serviceText = '', category = '', source = ''
+    let name = '', phone = '', email = '', message = '', serviceText = '', category = '', source = '', state = '', city = ''
     const uploadedFiles: string[] = []
 
     const contentType = req.headers.get('content-type') || ''
@@ -26,6 +26,9 @@ export async function POST(req: NextRequest) {
       serviceText = fd.get('serviceText') as string || ''
       category = fd.get('category') as string || ''
       source = fd.get('source') as string || ''
+
+      state = fd.get('state') as string || ''
+      city = fd.get('city') as string || ''
 
       const files = fd.getAll('files') as File[]
       if (files.length) {
@@ -44,6 +47,8 @@ export async function POST(req: NextRequest) {
     } else {
       const body = await req.json()
       ;({ name, phone, email, message, serviceText, category, source } = body)
+      state = body.state || ''
+      city = body.city || ''
     }
 
     if (!name || !phone) {
@@ -53,7 +58,7 @@ export async function POST(req: NextRequest) {
     const payload = await getPayloadClient()
     await payload.create({
       collection: 'inquiries',
-      data: { name, phone, email, message, serviceText, category, source, status: 'new' },
+      data: { name, phone, email, message, serviceText, category, state, city, source, status: 'new' },
     })
 
     const fromEmail = process.env.SES_FROM_EMAIL || 'info@delhifiling.com'

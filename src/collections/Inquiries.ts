@@ -23,6 +23,8 @@ export const Inquiries: CollectionConfig = {
     { name: 'service', type: 'relationship', relationTo: 'services' },
     { name: 'serviceText', type: 'text', admin: { description: 'Service name if not linked' } },
     { name: 'category', type: 'text' },
+    { name: 'state', type: 'text' },
+    { name: 'city', type: 'text' },
     { name: 'message', type: 'textarea' },
     {
       name: 'status',
