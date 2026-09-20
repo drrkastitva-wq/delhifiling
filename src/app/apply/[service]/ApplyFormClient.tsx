@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircle, Loader2, ChevronDown, User, Phone, Mail, MapPin, FileText, ArrowLeft, Shield, Clock, Award } from 'lucide-react'
+import { CheckCircle, Loader2, ChevronDown, ArrowLeft, Shield, Clock, Award, Mail } from 'lucide-react'
 
 const STATES = [
   'Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat',
@@ -13,8 +13,8 @@ const STATES = [
   'Andaman & Nicobar','Chandigarh','Dadra & Nagar Haveli','Daman & Diu','Lakshadweep','Puducherry',
 ]
 
-const inp = "w-full pl-10 pr-4 py-3.5 border-2 border-[#e0e0e0] text-[14px] text-[#222] bg-white focus:outline-none focus:border-[#16a34a] focus:ring-2 focus:ring-[#16a34a]/10 rounded-lg transition placeholder:text-[#aaa]"
-const label = "block text-[13px] font-bold text-[#003366] mb-2"
+const inp = "w-full px-3 py-3 border border-[#d0d0d0] text-[13px] text-[#222] bg-white focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]/10 rounded-lg transition placeholder:text-[#aaa]"
+const lbl = "block text-[11px] font-bold text-[#444] uppercase tracking-wide mb-1"
 
 export default function ApplyFormClient() {
   const params = useSearchParams()
@@ -121,28 +121,19 @@ export default function ApplyFormClient() {
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className={label}>Full Name <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
-                        <input required value={form.name} onChange={set('name')} placeholder="Enter your full name" className={inp} />
-                      </div>
+                      <label className={lbl}>Full Name <span className="text-red-500">*</span></label>
+                      <input required value={form.name} onChange={set('name')} placeholder="Enter your full name" className={inp} />
                     </div>
                     <div>
-                      <label className={label}>Mobile Number <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
-                        <input required type="tel" value={form.phone} onChange={set('phone')} placeholder="+91 XXXXX XXXXX" className={inp} />
-                      </div>
+                      <label className={lbl}>Mobile Number <span className="text-red-500">*</span></label>
+                      <input required type="tel" value={form.phone} onChange={set('phone')} placeholder="+91 XXXXX XXXXX" className={inp} />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className={label}>Email Address <span className="text-red-500">*</span></label>
-                  <div className="relative">
-                    <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
-                    <input required type="email" value={form.email} onChange={set('email')} placeholder="your@email.com" className={inp} />
-                  </div>
+                  <label className={lbl}>Email Address <span className="text-red-500">*</span></label>
+                  <input required type="email" value={form.email} onChange={set('email')} placeholder="your@email.com" className={inp} />
                 </div>
 
                 {/* Section: Location */}
@@ -154,22 +145,18 @@ export default function ApplyFormClient() {
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className={label}>State <span className="text-red-500">*</span></label>
+                      <label className={lbl}>State <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
-                        <select required value={form.state} onChange={set('state')} className={`${inp} appearance-none pr-10`}>
+                        <select required value={form.state} onChange={set('state')} className={`${inp} appearance-none pr-8`}>
                           <option value="">Select State</option>
                           {STATES.map(s => <option key={s} value={s}>{s}</option>)}
                         </select>
-                        <ChevronDown size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#999] pointer-events-none" />
+                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#999] pointer-events-none" />
                       </div>
                     </div>
                     <div>
-                      <label className={label}>City <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#16a34a]" />
-                        <input required value={form.city} onChange={set('city')} placeholder="Your city" className={inp} />
-                      </div>
+                      <label className={lbl}>City <span className="text-red-500">*</span></label>
+                      <input required value={form.city} onChange={set('city')} placeholder="Your city" className={inp} />
                     </div>
                   </div>
                 </div>
@@ -181,12 +168,9 @@ export default function ApplyFormClient() {
                     <p className="text-[13px] font-bold text-[#003366] uppercase tracking-wider">Requirement Details</p>
                     <div className="flex-1 h-px bg-[#e0e0e0]" />
                   </div>
-                  <div className="relative">
-                    <FileText size={16} className="absolute left-3 top-4 text-[#16a34a]" />
-                    <textarea rows={5} value={form.message} onChange={set('message')}
-                      placeholder="Describe your requirement — case details, urgency, specific questions, documents available..."
-                      className={`${inp} resize-none`} />
-                  </div>
+                  <textarea rows={5} value={form.message} onChange={set('message')}
+                    placeholder="Describe your requirement — case details, urgency, specific questions, documents available..."
+                    className={`${inp} resize-none`} />
                 </div>
 
                 {status === 'error' && (

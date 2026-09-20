@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Clock, CheckCircle, Shield, Award, Phone, ArrowRight } from 'lucide-react'
+import { Clock, Shield, Award, Phone, CheckCircle } from 'lucide-react'
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import FAQAccordion from '@/components/ui/FAQAccordion'
 import TrackVisit from '@/components/ui/TrackVisit'
+import InquiryForm from '@/components/ui/InquiryForm'
 import { getCategoryBySlug, getSubcategoryBySlug, getServiceBySlug, getSiteSettings } from '@/lib/payload'
 
 export const revalidate = 3600
@@ -135,35 +136,7 @@ export default async function ServicePage({ params }: { params: Promise<{ catego
         <div className="lg:col-span-1">
           <div className="sticky top-24 space-y-4">
 
-            {/* Apply CTA card */}
-            <div className="bg-white border border-[#cccccc] overflow-hidden">
-              <div className="bg-[#003366] px-5 py-4 border-b-4 border-[#FF6600]">
-                <p className="text-[#FFD700] text-[10px] font-bold uppercase tracking-widest mb-1">Apply Now</p>
-                <p className="text-white font-bold text-[15px] leading-tight">{service.name}</p>
-                {category && <p className="text-white/60 text-[11px] mt-0.5">{category.name}</p>}
-              </div>
-              <div className="p-5">
-                <p className="text-[12px] text-[#555] mb-4 leading-relaxed">
-                  Fill our simple form and get a free consultation from our experts within 2 working hours.
-                </p>
-                {[
-                  '100% Free Consultation',
-                  'No Obligation',
-                  'Response within 2 hours',
-                  'Expert Advocates & CAs',
-                ].map(pt => (
-                  <div key={pt} className="flex items-center gap-2 mb-2">
-                    <CheckCircle size={13} className="text-[#16a34a] shrink-0" />
-                    <span className="text-[12px] text-[#333]">{pt}</span>
-                  </div>
-                ))}
-                <Link
-                  href={`/apply/${serviceSlug}?service=${encodeURIComponent(service.name)}&category=${encodeURIComponent(category.name)}&back=${encodeURIComponent(`/${categorySlug}/${subcategorySlug}/${serviceSlug}`)}`}
-                  className="flex items-center justify-center gap-2 w-full py-3 mt-4 bg-[#FF6600] hover:bg-[#e65c00] text-white font-bold text-[13px] no-underline transition">
-                  Apply for This Service <ArrowRight size={14} />
-                </Link>
-              </div>
-            </div>
+            <InquiryForm serviceName={service.name} category={category.name} />
 
             {/* Call box */}
             <div className="bg-white border border-[#cccccc]">

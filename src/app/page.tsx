@@ -29,45 +29,21 @@ const EXPERTS = [
     abbr: 'Adv.',
     color: '#003366',
     expertise: ['Civil & Criminal Litigation', 'High Court & Supreme Court', 'Bail & Anticipatory Bail', 'Arbitration & ADR'],
-    svg: (
-      <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="32" fill="#003366"/>
-        <path d="M32 18a6 6 0 100 12 6 6 0 000-12z" fill="#FFD700"/>
-        <path d="M20 46c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round"/>
-        <rect x="24" y="38" width="16" height="2" rx="1" fill="#FFD700"/>
-        <path d="M26 34l-4 8h20l-4-8" stroke="#FFD700" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
+    img: '/advocate.jpeg',
   },
   {
     title: 'Chartered Accountant',
     abbr: 'CA',
     color: '#1a5c1a',
     expertise: ['GST & Income Tax Filing', 'ROC / MCA Compliance', 'Company Audit & Accounts', 'Financial Due Diligence'],
-    svg: (
-      <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="32" fill="#1a5c1a"/>
-        <rect x="18" y="20" width="28" height="24" rx="2" fill="none" stroke="#90EE90" strokeWidth="2"/>
-        <path d="M24 28h16M24 33h10M24 38h12" stroke="#90EE90" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M36 20v-3a4 4 0 00-8 0v3" stroke="#90EE90" strokeWidth="2"/>
-        <circle cx="32" cy="17" r="2" fill="#FFD700"/>
-      </svg>
-    ),
+    img: '/ca.jpeg',
   },
   {
     title: 'Company Secretary',
     abbr: 'CS',
     color: '#4a1a6b',
     expertise: ['Company Incorporation', 'Board & AGM Compliance', 'Director / DIN Services', 'MCA & ROC Filings'],
-    svg: (
-      <svg viewBox="0 0 64 64" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="32" fill="#4a1a6b"/>
-        <rect x="20" y="18" width="24" height="28" rx="2" fill="none" stroke="#DDA0DD" strokeWidth="2"/>
-        <path d="M26 26h12M26 31h12M26 36h8" stroke="#DDA0DD" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M28 18v-2h8v2" stroke="#DDA0DD" strokeWidth="2"/>
-        <circle cx="32" cy="16" r="1.5" fill="#FFD700"/>
-      </svg>
-    ),
+    img: '/cs.jpeg',
   },
 ]
 
@@ -143,9 +119,12 @@ export default async function HomePage() {
           <div className="bg-white border border-[#cccccc]">
             <div className="section-header">Our Expert Team</div>
             <div className="grid grid-cols-3 divide-x divide-[#eeeeee]">
-              {EXPERTS.map(({ title, abbr, color, expertise, svg }) => (
+              {EXPERTS.map(({ title, abbr, color, expertise, img }) => (
                 <div key={abbr} className="p-4 text-center">
-                  <div className="flex justify-center mb-3">{svg}</div>
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[#eeeeee]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
                   <div className="inline-block px-2 py-0.5 rounded-sm text-white text-[10px] font-bold mb-1"
                     style={{ background: color }}>{abbr}</div>
                   <div className="text-[#003366] font-bold text-[12px] mb-2">{title}</div>
