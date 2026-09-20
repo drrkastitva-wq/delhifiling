@@ -36,8 +36,12 @@ h1, h2, h3, h4 {
   line-height: 1.3;
 }
 
-a { color: var(--color-gov-link); text-decoration: none; }
-a:hover { color: var(--color-gov-link-hover); text-decoration: underline; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Only apply gov link colors to main content, not nav/footer */
+main a:not([class]) { color: var(--color-gov-link); }
+main a:not([class]):hover { color: var(--color-gov-link-hover); }
 
 /* Section header bar — orange left border + blue bg */
 .section-header {

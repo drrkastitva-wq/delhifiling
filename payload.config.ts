@@ -71,6 +71,7 @@ export default buildConfig({
     s3Storage({
       collections: { media: true },
       bucket: process.env.S3_BUCKET || 'delhifilling-media',
+      acl: 'public-read',
       config: {
         credentials: {
           accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
