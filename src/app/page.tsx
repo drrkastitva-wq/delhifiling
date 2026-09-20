@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { getHeroBanners, getSiteSettings, getBlogPosts } from '@/lib/payload'
 import { Scale, FileText, Building2, ClipboardCheck, ArrowRight, Phone, Shield, Award, Clock } from 'lucide-react'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const QUICK_LINKS = [
   { label: 'eCourt Filing',          sub: 'Civil • Criminal • HC • SC',  href: '/ecourt-filing',          icon: Scale },

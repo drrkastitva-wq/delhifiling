@@ -1,1 +1,193 @@
 @import '@payloadcms/next/css';
+
+:root {
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #f8f9fb;
+  --theme-elevation-100: #f0f2f5;
+  --theme-elevation-150: #e8ebf0;
+  --theme-elevation-200: #dde1e9;
+  --theme-elevation-500: #8a94a6;
+  --theme-elevation-800: #3d4a5c;
+  --theme-elevation-900: #1a2535;
+  --theme-elevation-1000: #0d1520;
+
+  --theme-text: #1a2535;
+  --theme-input-bg: #ffffff;
+
+  --theme-success-500: #16a34a;
+  --theme-error-500: #dc2626;
+  --theme-warning-500: #d97706;
+
+  /* Brand colors */
+  --theme-bg: #f0f2f5;
+}
+
+/* Sidebar */
+.nav {
+  background: #003366 !important;
+  border-right: 3px solid #FF6600 !important;
+}
+
+.nav__header {
+  background: #001f4d !important;
+  border-bottom: 2px solid #FF6600 !important;
+  padding: 16px !important;
+}
+
+.nav__header a {
+  color: #FFD700 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  text-decoration: none !important;
+}
+
+/* Nav links */
+.nav__link a,
+.nav__link button {
+  color: #b0c4de !important;
+  font-size: 13px !important;
+  border-radius: 4px !important;
+  transition: all 0.15s !important;
+}
+
+.nav__link a:hover,
+.nav__link button:hover,
+.nav__link--active a,
+.nav__link--active button {
+  background: rgba(255, 102, 0, 0.2) !important;
+  color: #FFD700 !important;
+}
+
+.nav__group-label {
+  color: #FF6600 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+/* Top nav bar */
+.app-header {
+  background: #004080 !important;
+  border-bottom: 2px solid #FF6600 !important;
+}
+
+.app-header__content {
+  color: #ffffff !important;
+}
+
+/* Buttons */
+.btn--style-primary {
+  background: #FF6600 !important;
+  border-color: #FF6600 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+}
+
+.btn--style-primary:hover {
+  background: #e65c00 !important;
+  border-color: #e65c00 !important;
+}
+
+.btn--style-secondary {
+  border-color: #003366 !important;
+  color: #003366 !important;
+  border-radius: 4px !important;
+}
+
+.btn--style-secondary:hover {
+  background: #003366 !important;
+  color: #ffffff !important;
+}
+
+/* Collection list header */
+.collection-list__header,
+.list-header {
+  background: #003366 !important;
+  color: #ffffff !important;
+  border-bottom: 2px solid #FF6600 !important;
+}
+
+/* Table */
+.table thead th {
+  background: #f0f2f5 !important;
+  color: #003366 !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-bottom: 2px solid #FF6600 !important;
+}
+
+.table tbody tr:hover td {
+  background: #f0f4ff !important;
+}
+
+/* Document fields */
+.field-type label,
+.field-label {
+  color: #003366 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+.field-type input,
+.field-type textarea,
+.field-type select {
+  border: 1px solid #cccccc !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+}
+
+.field-type input:focus,
+.field-type textarea:focus {
+  border-color: #003366 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.15) !important;
+}
+
+/* Document header */
+.doc-header {
+  background: #003366 !important;
+  border-bottom: 3px solid #FF6600 !important;
+}
+
+.doc-header__title,
+.doc-header h1 {
+  color: #FFD700 !important;
+}
+
+/* Checkbox */
+.checkbox-input__icon {
+  background: #FF6600 !important;
+  border-color: #FF6600 !important;
+}
+
+/* Pill / badge */
+.pill--style-success {
+  background: #dcfce7 !important;
+  color: #16a34a !important;
+}
+
+/* Dashboard */
+.dashboard__card-list .card {
+  border: 1px solid #dde1e9 !important;
+  border-top: 3px solid #FF6600 !important;
+  border-radius: 6px !important;
+  transition: box-shadow 0.15s !important;
+}
+
+.dashboard__card-list .card:hover {
+  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.12) !important;
+}
+
+.card__title {
+  color: #003366 !important;
+  font-weight: 700 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f0f2f5; }
+::-webkit-scrollbar-thumb { background: #003366; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #FF6600; }
